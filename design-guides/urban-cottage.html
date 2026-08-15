@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>laurenmakes</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/img/lm-logo.svg" />
+  <meta name="description" content="Urban Cottage: paint, thrift, DIY, and splurge, a complete plan for Mel." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Gabarito:wght@400;500;700;800&family=Inter:wght@400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../assets/css/main.css?v=24" />
+
+  <!-- PER-STYLE THEME — white grid + periwinkle blue (matches design-guides). -->
+  <style>
+    :root {
+      --paper:   #fdfdfc;
+      --paper-2: #eef1f8;
+      --clay:    #3a5bbf;
+      --sage:    #80A4ED;
+      --line:    #e3e4ec;
+    }
+    body {
+      background: #fdfdfc;
+      background-image:
+        linear-gradient(to right, rgba(20,20,26,.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(20,20,26,.05) 1px, transparent 1px);
+      background-size: 46px 46px;
+      background-attachment: fixed;
+    }
+    body::before { opacity: .015; }
+    .section--thrift  { background: linear-gradient(180deg, transparent, rgba(128,164,237,.07)); }
+    .section--diy     { background: linear-gradient(180deg, transparent, rgba(58,91,191,.05)); }
+    .section--splurge { background: var(--paper-2); }
+    .tile__note { background: rgba(253,253,252,.55); }
+  </style>
+</head>
+<body>
+
+  <header class="nav">
+    <a class="nav__brand" href="index.html">← Design guides</a>
+    <nav class="nav__links">
+      <a class="nav__brand" href="../"><img class="nav__logo" src="../assets/img/lm-logo.svg" alt="laurenmakes" /></a>
+    </nav>
+  </header>
+
+  <section class="style-hero wrap">
+    <div class="style-hero__text">
+      <p class="eyebrow reveal">Guide 02</p>
+      <h1 class="reveal">Urban Cottage</h1>
+      <p class="style-hero__lead reveal">Snow white comes home from a long day at the office, kicks off her pumps, and puts on a kettle. It's whimsical, unpretentious, and cozy. It's possible you got most of your furniture from your grandparents.</p>
+      <p class="style-hero__scroll reveal">Scroll for the full plan ↓</p>
+    </div>
+    <figure class="style-hero__star reveal">
+      <img src="../assets/img/melnorthstar.jpg" alt="Urban Cottage · north-star reference" />
+    </figure>
+  </section>
+
+  <section class="section" id="the-style">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="section__num">01 / Your style</span>
+        <h2>How I'd describe it</h2>
+      </div>
+      <div class="isnt">
+        <div class="isnt__col isnt--is reveal">
+          <h3>What it is</h3>
+          <ul><li>lived in</li><li>folk art, objects with a story, painted</li></ul>
+        </div>
+        <div class="isnt__col isnt--isnt reveal">
+          <h3>What it isn't</h3>
+          <ul><li>cluttered</li><li>digital, crisp</li></ul>
+        </div>
+      </div>
+      <div class="collage">
+        <figure class="tile tile--a"><img src="../assets/img/melinspo1.jpg" alt="" /><figcaption class="tile__note">Mismatched chairs, pendant light with chain</figcaption></figure>
+        <figure class="tile tile--b"><img src="../assets/img/melinspo2.jpg" alt="" /><figcaption class="tile__note">&quot;Granny&quot; flower print on the pillow and the planter</figcaption></figure>
+        <figure class="tile tile--c"><img src="../assets/img/melinspo3.jpg" alt="" /><figcaption class="tile__note">Quaint objects, hand painted ceramic</figcaption></figure>
+        <figure class="tile tile--d"><img src="../assets/img/melinspo4.jpg" alt="" /><figcaption class="tile__note">retro bookshelf + unusual objects</figcaption></figure>
+        <figure class="tile tile--e"><img src="../assets/img/melinspo5.jpg" alt="" /><figcaption class="tile__note">gingham, unpretentious</figcaption></figure>
+      </div>
+    </div>
+  </section>
+  <section class="section" id="throughlines">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="section__num">02 / What I am noticing</span>
+        <h2>Through-lines</h2>
+      </div>
+      <div class="throughline reveal">
+        <div class="throughline__nodes" style="grid-template-columns:repeat(4,1fr);--tl-count:4">
+          <div class="throughline__track"></div>
+          <span class="throughline__bead" style="grid-column:1"></span><span class="throughline__bead" style="grid-column:2"></span><span class="throughline__bead" style="grid-column:3"></span><span class="throughline__bead" style="grid-column:4"></span>
+          <span class="throughline__label" style="grid-column:1;grid-row:3">small scale lamps with fabric shades</span><span class="throughline__label" style="grid-column:2;grid-row:1">wall mounted wooden shelving</span><span class="throughline__label" style="grid-column:3;grid-row:3">Mix and match chairs around a patinated wood table</span><span class="throughline__label" style="grid-column:4;grid-row:1">tiled kitchen backspashes</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section" id="paint">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="section__num">03 / Palette</span>
+        <h2>Recommended color palette</h2>
+      </div>
+      <div class="swatches">
+        <div class="swatch reveal">
+          <div class="swatch__chip" style="background:#edd392"></div>
+          <p class="swatch__name">Butter</p>
+          <p class="swatch__meta"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section section--thrift">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="section__num">04 / You can find it</span>
+        <h2>What to thrift</h2>
+      </div>
+      <div class="picks">
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Thrift</span>
+            <img src="../assets/img/melthrift1.jpg" alt="" />
+          </div>
+          <h3 class="pick__name">Plate holder</h3>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Thrift</span>
+            <img src="../assets/img/melthrift2.jpg" alt="" />
+          </div>
+          <h3 class="pick__name">heavily patina-ed dinner table</h3>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="section section--diy">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="section__num">05 / Make it</span>
+        <h2>What to DIY</h2>
+      </div>
+      <div class="picks">
+        <article class="pick pick--diy reveal">
+          <header class="pick__head">
+            <span class="pick__badge pick__badge--inline">DIY</span>
+            <h3 class="pick__name">Re-knob a dresser</h3>
+          </header>
+          <div class="pick__frame" data-tilt>
+            <img src="../assets/img/meldiy1.png" alt="" />
+          </div>
+          <div class="pick__notes"><p class="pick__notes-label">Notes</p><p>Thrift some vintage knobs. Have all the knobs be different. Maybe keep to a certain style like all blue and white or all flower shaped (like the example).</p></div>
+        </article>
+        <article class="pick pick--diy reveal">
+          <header class="pick__head">
+            <span class="pick__badge pick__badge--inline">DIY</span>
+            <h3 class="pick__name">Paint switch covers</h3>
+          </header>
+          <div class="pick__frame" data-tilt>
+            <img src="../assets/img/meldiy2.webp" alt="" />
+          </div>
+          <div class="pick__notes"><p class="pick__notes-label">Notes</p></div>
+        </article>
+        <article class="pick pick--diy reveal">
+          <header class="pick__head">
+            <span class="pick__badge pick__badge--inline">DIY</span>
+            <h3 class="pick__name">Self expression fridge</h3>
+          </header>
+          <div class="pick__frame" data-tilt>
+            <img src="../assets/img/meldiy3.jpg" alt="" />
+          </div>
+          <div class="pick__notes"><p class="pick__notes-label">Notes</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="section section--splurge">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="section__num">06 / Worth it</span>
+        <h2>What to splurge on</h2>
+      </div>
+      <div class="picks">
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Splurge</span>
+            <img src="../assets/img/melsplurge1.png" alt="" />
+          </div>
+          <h3 class="pick__name">Art</h3>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="section ">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="section__num">07 / Items to consider</span>
+        <h2>What to buy</h2>
+      </div>
+      <div class="picks">
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Buy</span>
+            <img src="../assets/img/melshop1.png" alt="" />
+          </div>
+          <h3 class="pick__name">Seashell shaped wine stopper</h3>
+          <a class="pick__link" href="https://go.shopmy.us/p-77462003" target="_blank" rel="sponsored nofollow noopener">Shop <span>→</span></a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer wrap">
+    <p class="eyebrow">Keep going</p>
+    <h2 style="max-width:none;">That's the whole room.</h2>
+    <div class="footer__links">
+      <a class="pill" href="index.html">← Back to design guides</a>
+    </div>
+    <div class="footer__notes">
+      <p class="footer__note">Made alongside my YouTube channel, <a class="footer__yt" href="https://www.youtube.com/@lauren_makes" target="_blank" rel="noopener">@lauren_makes</a>.</p>
+      <p class="footer__note">Some links are affiliate links via ShopMy, I may earn a small commission at no cost to you.</p>
+      <p class="footer__note"><a class="footer__yt" href="../consult/">Join the waitlist for a custom guide →</a></p>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js?v=6"></script>
+</body>
+</html>
