@@ -181,7 +181,11 @@ const SCHEMA = [
   { id:'throughlines', title:'Through-lines',
     intro:'The recurring elements that show up again and again in their board — the stuff that makes it feel like *them*. Short phrases, shown connected in a line.',
     fields:[
-      {key:'throughlines', type:'strlist', label:'Through-line elements', add:'Add a through-line', ph:'e.g. Empire lamps'},
+      {key:'throughlines', type:'objlist', label:'Through-line elements', add:'Add a through-line',
+        subs:[
+          {key:'text',  type:'text', ph:'e.g. Empire lamps'},
+          {key:'image', type:'text', ph:'image file (optional) e.g. vk-throughline-1.jpg'},
+        ]},
     ]},
   { id:'inspo', title:'Inspiration notes',
     intro:'For each inspo photo you send me, your quick take — it shows when someone hovers the image.',
@@ -260,7 +264,7 @@ function blankGuide(name){
     friendName:name||'', styleName:'', guideNumber:'', boardUrl:'', lead:'',
     northStarFile:'', northStarNote:'',
     whatItIs:[''], whatItIsnt:[''],
-    throughlines:[''],
+    throughlines:[{text:'',image:''}],
     inspiration:[{note:'',image:''}],
     palette:[{name:'',hex:'#efeae0',usage:'',patternImage:''}],
     thrift:[{name:'',note:'',image:''}],
@@ -286,7 +290,8 @@ function migrate(s){
       const m = String(g.lead||'').match(/^\s*(https?:\/\/\S+)\s*([\s\S]*)$/);
       if(m){ g.boardUrl=m[1]; g.lead=m[2].replace(/^\s+/,''); }
     }
-    if(g.throughlines===undefined) g.throughlines=[''];
+    if(g.throughlines===undefined) g.throughlines=[{text:'',image:''}];
+    else g.throughlines = g.throughlines.map(t=> typeof t==='string' ? {text:t, image:''} : t);
     (g.palette||[]).forEach(c=>{ if(c.patternImage===undefined) c.patternImage=''; });
   });
   return s;
@@ -524,7 +529,8 @@ function previewHTML(g){
   if(g.lead) h += `<p>${esc(g.lead)}</p>`;
   h += `<h3>What it is</h3>` + (list(g.whatItIs).map(x=>`<p>— ${esc(x)}</p>`).join('') || '<p class="muted">—</p>');
   h += `<h3>What it isn’t</h3>` + (list(g.whatItIsnt).map(x=>`<p>— ${esc(x)}</p>`).join('') || '<p class="muted">—</p>');
-  h += `<h3>Through-lines</h3>` + (list(g.throughlines).join(' <span class="muted">···</span> ') ? `<p>${list(g.throughlines).join(' <span class="muted">···</span> ')}</p>` : '<p class="muted">—</p>');
+  const throughlineTexts = (g.throughlines||[]).map(t=>String((t&&t.text)||'').trim()).filter(Boolean);
+  h += `<h3>Through-lines</h3>` + (throughlineTexts.length ? `<p>${throughlineTexts.join(' <span class="muted">···</span> ')}</p>` : '<p class="muted">—</p>');
   h += `<h3>Inspiration notes</h3>` + ((g.inspiration||[]).filter(i=>(i.note||'').trim()).map(i=>`<p class="muted">“${esc(i.note)}”</p>`).join('') || '<p class="muted">—</p>');
   h += `<h3>Palette</h3>` + ((g.palette||[]).filter(c=>(c.name||'').trim()||(c.usage||'').trim()).map(c=>{
     const isPattern = (c.patternImage||'').trim();
@@ -554,7 +560,7 @@ function buildGuideHTML(g){
   const lead = g.lead || '';
   const isList   = (g.whatItIs  ||[]).map(x=>String(x||'').trim()).filter(Boolean);
   const isntList = (g.whatItIsnt||[]).map(x=>String(x||'').trim()).filter(Boolean);
-  const throughLines = (g.throughlines||[]).map(x=>String(x||'').trim()).filter(Boolean);
+  const throughLines = (g.throughlines||[]).filter(t=>((t&&t.text)||'').trim());
   const inspo    = (g.inspiration||[]).filter(i=>(i.note||'').trim()||(i.image||'').trim());
   const palette  = (g.palette||[]).filter(c=>(c.name||'').trim()||(c.usage||'').trim());
   const hasPattern = palette.some(c=>(c.patternImage||'').trim());
@@ -578,7 +584,10 @@ function buildGuideHTML(g){
         <div class="throughline__nodes" style="grid-template-columns:repeat(${throughLines.length},1fr);--tl-count:${throughLines.length}">
           <div class="throughline__track"></div>
           ${throughLines.map((x,i)=>`<span class="throughline__bead" style="grid-column:${i+1}"></span>`).join('')}
-          ${throughLines.map((x,i)=>`<span class="throughline__label" style="grid-column:${i+1};grid-row:${i%2===0?3:1}">${esc(x)}</span>`).join('')}
+          ${throughLines.map((t,i)=>{
+            const img = (t.image||'').trim() ? `<img src="${esc(imgPath(t.image))}" alt="" />` : '';
+            return `<span class="throughline__label" style="grid-column:${i+1};grid-row:${i%2===0?3:1}">${img}${esc(t.text)}</span>`;
+          }).join('')}
         </div>
       </div>` : '';
   const collage = inspo.length ? `
@@ -728,13 +737,13 @@ function buildGuideHTML(g){
 <body>
 
   <header class="nav">
-    <a class="nav__brand" href="index.html">← Design guides</a>
+    <a class="nav__brand" href="./">← Design guides</a>
     <nav class="nav__links" aria-label="Other guides">
-      <a class="pill pill--light" href="cozy-traditional.html">cozy traditional</a>
-      <a class="pill pill--light" href="urban-cottage.html">urban cottage</a>
-      <a class="pill pill--light" href="style.html">scandi</a>
-      <a class="pill pill--light" href="style.html">elevated country</a>
-      <a class="pill pill--light" href="style.html">moody eclectic</a>
+      <a class="pill pill--light" href="cozy-traditional">cozy traditional</a>
+      <a class="pill pill--light" href="urban-cottage">urban cottage</a>
+      <a class="pill pill--light" href="style">scandi</a>
+      <a class="pill pill--light" href="style">elevated country</a>
+      <a class="pill pill--light" href="style">moody eclectic</a>
       <a class="nav__brand" href="../"><img class="nav__logo" src="../assets/img/lm-logo.svg" alt="laurenmakes" /></a>
     </nav>
   </header>
@@ -755,7 +764,7 @@ ${secStyle}${secThroughlines}${secPalette}${secThrift}${secDiy}${secSplurge}${se
   <footer class="footer wrap">
     <h2 style="max-width:none;">That's the whole room.</h2>
     <div class="footer__links">
-      <a class="pill" href="index.html">← Back to design guides</a>
+      <a class="pill" href="./">← Back to design guides</a>
     </div>
     <div class="footer__notes">
       <p class="footer__note">Made alongside my YouTube channel, <a class="footer__yt" href="https://www.youtube.com/@lauren_makes" target="_blank" rel="noopener">@lauren_makes</a>.</p>
