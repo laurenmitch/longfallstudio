@@ -582,7 +582,7 @@ function buildGuideHTML(g){
         </div>
       </div>` : '';
   const collage = inspo.length ? `
-      <div class="collage">
+      <div class="collage collage--masonry">
         ${inspo.map((it,i)=>`<figure class="tile ${tileClasses[i%5]}"><img src="${esc(imgPath(it.image,inspoDefaults[i%5]))}" alt="" /><figcaption class="tile__note">${esc(it.note||'')}</figcaption></figure>`).join('\n        ')}
       </div>` : '';
   const swatches = palette.length ? `
@@ -729,7 +729,12 @@ function buildGuideHTML(g){
 
   <header class="nav">
     <a class="nav__brand" href="index.html">← Design guides</a>
-    <nav class="nav__links">
+    <nav class="nav__links" aria-label="Other guides">
+      <a class="pill pill--light" href="cozy-traditional.html">cozy traditional</a>
+      <a class="pill pill--light" href="urban-cottage.html">urban cottage</a>
+      <a class="pill pill--light" href="style.html">scandi</a>
+      <a class="pill pill--light" href="style.html">elevated country</a>
+      <a class="pill pill--light" href="style.html">moody eclectic</a>
       <a class="nav__brand" href="../"><img class="nav__logo" src="../assets/img/lm-logo.svg" alt="laurenmakes" /></a>
     </nav>
   </header>
@@ -748,7 +753,6 @@ function buildGuideHTML(g){
 ${secStyle}${secThroughlines}${secPalette}${secThrift}${secDiy}${secSplurge}${secBuy}
 
   <footer class="footer wrap">
-    <p class="eyebrow">Keep going</p>
     <h2 style="max-width:none;">That's the whole room.</h2>
     <div class="footer__links">
       <a class="pill" href="index.html">← Back to design guides</a>

@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Gabarito:wght@400;500;700;800&family=Inter:wght@400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="../assets/css/main.css?v=24" />
+  <link rel="stylesheet" href="../assets/css/main.css?v=35" />
 
   <!-- PER-STYLE THEME — white grid + periwinkle blue (matches design-guides). -->
   <style>
@@ -41,7 +41,12 @@
 
   <header class="nav">
     <a class="nav__brand" href="index.html">← Design guides</a>
-    <nav class="nav__links">
+    <nav class="nav__links" aria-label="Other guides">
+      <a class="pill pill--light" href="cozy-traditional.html">cozy traditional</a>
+      <a class="pill pill--light" href="urban-cottage.html">urban cottage</a>
+      <a class="pill pill--light" href="style.html">scandi</a>
+      <a class="pill pill--light" href="style.html">elevated country</a>
+      <a class="pill pill--light" href="style.html">moody eclectic</a>
       <a class="nav__brand" href="../"><img class="nav__logo" src="../assets/img/lm-logo.svg" alt="laurenmakes" /></a>
     </nav>
   </header>
@@ -74,7 +79,7 @@
           <ul><li>cluttered</li><li>digital, crisp</li></ul>
         </div>
       </div>
-      <div class="collage">
+      <div class="collage collage--masonry">
         <figure class="tile tile--a"><img src="../assets/img/melinspo1.jpg" alt="" /><figcaption class="tile__note">Mismatched chairs, pendant light with chain</figcaption></figure>
         <figure class="tile tile--b"><img src="../assets/img/melinspo2.jpg" alt="" /><figcaption class="tile__note">&quot;Granny&quot; flower print on the pillow and the planter</figcaption></figure>
         <figure class="tile tile--c"><img src="../assets/img/melinspo3.jpg" alt="" /><figcaption class="tile__note">Quaint objects, hand painted ceramic</figcaption></figure>
@@ -93,7 +98,10 @@
         <div class="throughline__nodes" style="grid-template-columns:repeat(4,1fr);--tl-count:4">
           <div class="throughline__track"></div>
           <span class="throughline__bead" style="grid-column:1"></span><span class="throughline__bead" style="grid-column:2"></span><span class="throughline__bead" style="grid-column:3"></span><span class="throughline__bead" style="grid-column:4"></span>
-          <span class="throughline__label" style="grid-column:1;grid-row:3">small scale lamps with fabric shades</span><span class="throughline__label" style="grid-column:2;grid-row:1">wall mounted wooden shelving</span><span class="throughline__label" style="grid-column:3;grid-row:3">Mix and match chairs around a patinated wood table</span><span class="throughline__label" style="grid-column:4;grid-row:1">tiled kitchen backspashes</span>
+          <span class="throughline__label" style="grid-column:1;grid-row:3"><img src="../assets/img/melinspo4.jpg" alt="" />small scale lamps with fabric shades</span>
+          <span class="throughline__label" style="grid-column:2;grid-row:1"><img src="../assets/img/melinspo5.jpg" alt="" />wall mounted wooden shelving</span>
+          <span class="throughline__label" style="grid-column:3;grid-row:3"><img src="../assets/img/melinspo1.jpg" alt="" />Mix and match chairs around a patinated wood table</span>
+          <span class="throughline__label" style="grid-column:4;grid-row:1"><img src="../assets/img/melinspo3.jpg" alt="" />tiled kitchen backsplashes</span>
         </div>
       </div>
     </div>
@@ -214,7 +222,6 @@
   </section>
 
   <footer class="footer wrap">
-    <p class="eyebrow">Keep going</p>
     <h2 style="max-width:none;">That's the whole room.</h2>
     <div class="footer__links">
       <a class="pill" href="index.html">← Back to design guides</a>
@@ -226,6 +233,6 @@
     </div>
   </footer>
 
-  <script src="../assets/js/main.js?v=6"></script>
+  <script src="../assets/js/main.js?v=7"></script>
 </body>
 </html>

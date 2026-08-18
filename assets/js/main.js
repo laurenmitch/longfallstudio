@@ -35,6 +35,16 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
   window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(revealInView, 150); });
 })();
 
+/* ---- 1b. Nav auto-hide: only show the sticky nav at the very top ---- */
+(() => {
+  const nav = document.querySelector(".nav");
+  if (!nav) return;
+  const THRESHOLD = 8;
+  const update = () => nav.classList.toggle("nav--hidden", window.scrollY > THRESHOLD);
+  update();
+  window.addEventListener("scroll", update, { passive: true });
+})();
+
 /* ---- 2. Tilt on hover: image leans toward the cursor ---- */
 (() => {
   if (reduceMotion) return;
