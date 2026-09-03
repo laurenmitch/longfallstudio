@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="900" viewBox="0 0 700 900">
+  <defs>
+    <linearGradient id="g6" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e3ded3"/>
+      <stop offset="1" stop-color="#b3a98f"/>
+    </linearGradient>
+  </defs>
+  <rect width="700" height="900" fill="url(#g6)"/>
+  <text x="50%" y="50%" fill="#3d362b" fill-opacity="0.55" font-family="monospace" font-size="15"
+        letter-spacing="2" text-anchor="middle" dominant-baseline="middle">INSPIRATION</text>
+</svg>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>laurenmakes</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/img/lm-logo.svg" />
+  <meta name="description" content="A complete plan for a Cozy Scandinavian room: paint, thrift, DIY, and splurge." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Gabarito:wght@400;500;700;800&family=Inter:wght@400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../assets/css/main.css?v=58" />
+
+  <!-- PER-STYLE THEME — base look matches the decorating-guides page: white grid + periwinkle blue.
+       These tokens re-skin the whole page; the paint swatches in the body are separate (real color recs). -->
+  <style>
+    :root {
+      --paper:   #fdfdfc;  /* page background — near-white, like the guides page */
+      --paper-2: #eef1f8;  /* cards / panels — faint cool tint                   */
+      --clay:    #3a5bbf;  /* accent text (links, marks) — deep periwinkle       */
+      --sage:    #80A4ED;  /* secondary accent — the highlighter blue            */
+      --line:    #e3e4ec;  /* hairline borders on white                          */
+    }
+
+    /* Grid background, fixed full-bleed — matches the decorating-guides page */
+    body {
+      background: #fdfdfc;
+      background-image:
+        linear-gradient(to right, rgba(20,20,26,.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(20,20,26,.05) 1px, transparent 1px);
+      background-size: 46px 46px;
+      background-attachment: fixed;
+    }
+    body::before { opacity: .015; }  /* barely-there grain over white */
+
+    /* Alternating section tints, re-keyed from clay/sage to the blue palette */
+    .section--thrift  { background: linear-gradient(180deg, transparent, rgba(128,164,237,.07)); }
+    .section--diy     { background: linear-gradient(180deg, transparent, rgba(58,91,191,.05)); }
+    .section--splurge { background: var(--paper-2); }
+
+    /* Collage hover note — cool white instead of warm cream */
+    .tile__note { background: rgba(253,253,252,.55); }
+    .footer__links { display: flex; flex-wrap: wrap; gap: .75rem; }
+  </style>
+</head>
+<body>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav">
+    <a class="nav__brand" href="./">← Decorating guides</a>
+    <nav class="nav__links" aria-label="Other guides">
+      <a class="pill pill--light" style="--pill-hl:#f2ecd9;--pill-ink:#14141a" href="cozy-traditional">cozy traditional</a>
+      <a class="pill pill--light" style="--pill-hl:#AFA857;--pill-ink:#14141a" href="urban-cottage">urban cottage</a>
+      <a class="pill pill--light" style="--pill-hl:#AAA2AF;--pill-ink:#14141a" href="mystical-den">mystical den</a>
+      <a class="pill pill--light" style="--pill-hl:#FF6923;--pill-ink:#14141a" href="bold-naturalist">bold naturalist</a>
+      <a class="pill pill--light" style="--pill-hl:#DDDDCF;--pill-ink:#14141a" href="polished-townhome">polished townhome</a>
+      <a class="nav__brand" href="../"><img class="nav__logo" src="../assets/img/lm-logo.svg" alt="laurenmakes" /></a>
+    </nav>
+  </header>
+
+  <!-- ============ STYLE HERO ============ -->
+  <section class="style-hero wrap">
+    <div class="style-hero__text">
+      <p class="eyebrow reveal">Guide 01</p>
+      <h1 class="reveal">Cozy<br />Scandinavian</h1>
+      <p class="style-hero__lead reveal">
+        Pale wood and soft light, warmed up with color and texture so it feels
+        lived-in instead of showroom-cold. Hygge with a pulse.
+      </p>
+      <p class="style-hero__scroll reveal">Scroll for the full plan ↓</p>
+    </div>
+    <!-- NORTH-STAR IMAGE — swap this placeholder for the one photo that best captures this style -->
+    <figure class="style-hero__star reveal">
+      <img src="../assets/img/inspo-1.svg" alt="Cozy Scandinavian · north-star reference" />
+    </figure>
+  </section>
+
+  <!-- ============ 1 · THE STYLE ============ -->
+  <section class="section" id="the-style">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="section__num">01 / Your style</span>
+        <h2>How i'd describe it</h2>
+      </div>
+
+      <!-- What it is / what it isn't -->
+      <div class="isnt">
+        <div class="isnt__col isnt--is reveal">
+          <h3>What it is</h3>
+          <ul>
+            <li>Light woods: ash, birch, pine</li>
+            <li>Warm neutrals with one or two clear colors</li>
+            <li>Soft, layered textiles: wool, linen, sheepskin</li>
+            <li>Simple forms, honest materials</li>
+            <li>Plants and handmade ceramics</li>
+          </ul>
+        </div>
+        <div class="isnt__col isnt--isnt reveal">
+          <h3>What it isn't</h3>
+          <ul>
+            <li>Cold, all-white, and sterile</li>
+            <li>Flat-pack everything with no soul</li>
+            <li>Matchy sets bought in one trip</li>
+            <li>Fussy, ornate, or heavy</li>
+            <li>Trend-chasing that dates in a year</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Inspiration collage — tilt on hover -->
+      <!-- Hover any image for my note on it. Edit the .tile__note text per image. -->
+      <div class="collage collage--masonry">
+        <figure class="tile tile--a"><img src="../assets/img/inspo-1.svg" alt="" /><figcaption class="tile__note">The light is doing all the work here, I'd keep the windows bare.</figcaption></figure>
+        <figure class="tile tile--b"><img src="../assets/img/inspo-2.svg" alt="" /><figcaption class="tile__note">This exact oat tone is basically the whole palette in one shot.</figcaption></figure>
+        <figure class="tile tile--c"><img src="../assets/img/inspo-3.svg" alt="" /><figcaption class="tile__note">Layered textures over a matchy set, every single time.</figcaption></figure>
+        <figure class="tile tile--d"><img src="../assets/img/inspo-4.svg" alt="" /><figcaption class="tile__note">A little visible wear makes a room feel collected, not staged.</figcaption></figure>
+        <figure class="tile tile--e"><img src="../assets/img/inspo-5.svg" alt="" /><figcaption class="tile__note">Negative space is a choice, let the good pieces breathe.</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 2 · PAINT COLORS ============ -->
+  <section class="section" id="paint">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="section__num">02 / Palette</span>
+        <h2>Recommended color palette and patterns</h2>
+      </div>
+      <div class="swatches">
+        <div class="swatch reveal">
+          <div class="swatch__chip" style="background:#efeae0"></div>
+          <p class="swatch__name">Warm Chalk</p>
+          <p class="swatch__meta">Walls · OC-17 (swap)</p>
+        </div>
+        <div class="swatch reveal">
+          <div class="swatch__chip" style="background:#d8c7ad"></div>
+          <p class="swatch__name">Oat Straw</p>
+          <p class="swatch__meta">Accent wall</p>
+        </div>
+        <div class="swatch reveal">
+          <div class="swatch__chip" style="background:#8a9a7b"></div>
+          <p class="swatch__name">Fern Sage</p>
+          <p class="swatch__meta">Trim / door</p>
+        </div>
+        <div class="swatch reveal">
+          <div class="swatch__chip" style="background:#b3654a"></div>
+          <p class="swatch__name">Soft Clay</p>
+          <p class="swatch__meta">Pop of color</p>
+        </div>
+        <div class="swatch reveal">
+          <div class="swatch__chip" style="background:#3f4a4d"></div>
+          <p class="swatch__name">Deep Slate</p>
+          <p class="swatch__meta">Grounding tone</p>
+        </div>
+        <div class="swatch reveal">
+          <img class="swatch__chip" src="../assets/img/moodboard-2.svg" alt="Ticking stripe pattern swatch" />
+          <p class="swatch__name">Ticking Stripe</p>
+          <p class="swatch__meta">Cushions / skirt</p>
+        </div>
+        <div class="swatch reveal">
+          <img class="swatch__chip" src="../assets/img/moodboard-3.svg" alt="Vintage floral pattern swatch" />
+          <p class="swatch__name">Vintage Floral</p>
+          <p class="swatch__meta">Throw pillow</p>
+        </div>
+        <div class="swatch reveal">
+          <img class="swatch__chip" src="../assets/img/moodboard-4.svg" alt="Woven texture pattern swatch" />
+          <p class="swatch__name">Woven Texture</p>
+          <p class="swatch__meta">Rug / basket</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3 · WHAT TO THRIFT ============ -->
+  <section class="section section--thrift" id="thrift">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="section__num">03 / You can find it</span>
+        <h2>What to thrift</h2>
+      </div>
+      <div class="picks">
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Thrift</span>
+            <img src="../assets/img/thrift-1.svg" alt="" />
+          </div>
+          <h3 class="pick__name">Solid wood dresser</h3>
+          <p class="pick__note">Look for dovetail joints and real veneer.</p>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Thrift</span>
+            <img src="../assets/img/thrift-2.svg" alt="" />
+          </div>
+          <h3 class="pick__name">Woven baskets</h3>
+          <p class="pick__note">Texture and storage in one, buy a stack.</p>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Thrift</span>
+            <img src="../assets/img/product-1.svg" alt="" />
+          </div>
+          <h3 class="pick__name">Ceramic vases</h3>
+          <p class="pick__note">Odd numbers, matte glazes, imperfect shapes.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4 · WHAT TO DIY ============ -->
+  <section class="section section--diy" id="diy">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="section__num">04 / Make it</span>
+        <h2>What to DIY</h2>
+      </div>
+      <div class="picks">
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">DIY</span>
+            <img src="../assets/img/diy-1.svg" alt="" />
+          </div>
+          <h3 class="pick__name">Linen curtains</h3>
+          <p class="pick__note">Hem cheap linen yardage, floor-length, gathered.</p>
+          <a class="pick__link" href="#" target="_blank" rel="sponsored nofollow noopener">Supplies on ShopMy <span>→</span></a>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">DIY</span>
+            <img src="../assets/img/diy-2.svg" alt="" />
+          </div>
+          <h3 class="pick__name">Peg rail</h3>
+          <p class="pick__note">A length of Shaker pegs = instant Scandi storage.</p>
+          <a class="pick__link" href="#" target="_blank" rel="sponsored nofollow noopener">Supplies on ShopMy <span>→</span></a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5 · WHAT TO SPLURGE ON ============ -->
+  <section class="section section--splurge" id="splurge">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="section__num">05 / Worth it</span>
+        <h2>What to splurge on</h2>
+      </div>
+      <div class="picks">
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Splurge</span>
+            <img src="../assets/img/splurge-1.svg" alt="" />
+          </div>
+          <h3 class="pick__name">The sofa</h3>
+          <p class="pick__note">You sit on it daily, buy the good frame once.</p>
+          <a class="pick__link" href="#" target="_blank" rel="sponsored nofollow noopener">Shop <span>→</span></a>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Splurge</span>
+            <img src="../assets/img/splurge-2.svg" alt="" />
+          </div>
+          <h3 class="pick__name">A real wool rug</h3>
+          <p class="pick__note">Wool wears in, not out. It anchors the whole room.</p>
+          <a class="pick__link" href="#" target="_blank" rel="sponsored nofollow noopener">Shop <span>→</span></a>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Splurge</span>
+            <img src="../assets/img/product-2.svg" alt="" />
+          </div>
+          <h3 class="pick__name">Statement lighting</h3>
+          <p class="pick__note">One sculptural pendant does more than five lamps.</p>
+          <a class="pick__link" href="#" target="_blank" rel="sponsored nofollow noopener">Shop <span>→</span></a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6 · WHAT TO BUY ============ -->
+  <section class="section" id="buy">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="section__num">06 / Items to consider</span>
+        <h2>What to buy</h2>
+      </div>
+      <div class="picks">
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt><span class="pick__badge">Buy</span><img src="../assets/img/product-3.svg" alt="" /></div>
+          <h3 class="pick__name">Linen bedding set</h3>
+          <p class="pick__note">Stonewashed, in oat or clay.</p>
+          <a class="pick__link" href="#" target="_blank" rel="sponsored nofollow noopener">Shop <span>→</span></a>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt><span class="pick__badge">Buy</span><img src="../assets/img/product-4.svg" alt="" /></div>
+          <h3 class="pick__name">Paper pendant shade</h3>
+          <p class="pick__note">The classic, soft, diffuse glow.</p>
+          <a class="pick__link" href="#" target="_blank" rel="sponsored nofollow noopener">Shop <span>→</span></a>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt><span class="pick__badge">Buy</span><img src="../assets/img/product-1.svg" alt="" /></div>
+          <h3 class="pick__name">Stoneware mugs</h3>
+          <p class="pick__note">Everyday objects, but make them beautiful.</p>
+          <a class="pick__link" href="#" target="_blank" rel="sponsored nofollow noopener">Shop <span>→</span></a>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt><span class="pick__badge">Buy</span><img src="../assets/img/product-2.svg" alt="" /></div>
+          <h3 class="pick__name">Throw blanket</h3>
+          <p class="pick__note">Chunky wool, tossed with intention.</p>
+          <a class="pick__link" href="#" target="_blank" rel="sponsored nofollow noopener">Shop <span>→</span></a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer wrap">
+    <h2 style="max-width:none;">That's the whole home.</h2>
+    <div class="footer__links">
+      <a class="pill" href="./">← Back to decorating guides</a>
+    </div>
+    <div class="footer__notes">
+      <p class="footer__note">Made alongside my YouTube channel, <a class="footer__yt" href="https://www.youtube.com/@lauren_makes" target="_blank" rel="noopener">@lauren_makes</a>.</p>
+      <p class="footer__note">Some links are affiliate links via ShopMy, I may earn a small commission at no cost to you.</p>
+      <p class="footer__note">Want a guide like this, just for you? <a class="footer__yt" href="../interest/">Let me know →</a></p>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js?v=8"></script>
+</body>
+</html>

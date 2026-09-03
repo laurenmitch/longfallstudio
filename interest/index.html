@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>laurenmakes</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/img/lm-logo.svg" />
+  <meta name="description" content="Curious about a custom decorating guide for your space? Let me know you're interested." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Gabarito:wght@400;500;700;800&family=Inter:wght@400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../assets/css/main.css?v=58" />
+
+  <!-- PER-PAGE THEME — white grid + periwinkle blue (matches decorating-guides). -->
+  <style>
+    :root {
+      --paper:   #fdfdfc;
+      --paper-2: #eef1f8;
+      --clay:    #3a5bbf;
+      --sage:    #80A4ED;
+      --line:    #e3e4ec;
+    }
+    body {
+      background: #fdfdfc;
+      background-image:
+        linear-gradient(to right, rgba(20,20,26,.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(20,20,26,.05) 1px, transparent 1px);
+      background-size: 46px 46px;
+      background-attachment: fixed;
+    }
+    body::before { opacity: .015; }
+
+    /* ---- Example teaser (replaces the north-star image slot) ---- */
+    .example-card {
+      display: block;
+      border-radius: 4px;
+      overflow: hidden;
+      background: var(--paper-2);
+      box-shadow: 0 22px 55px rgba(24,24,30,.16);
+      text-decoration: none;
+      transition: transform .4s var(--ease);
+    }
+    .example-card:hover { transform: translateY(-4px); }
+    .example-card__frame { aspect-ratio: 4/5; overflow: hidden; }
+    .example-card__frame img { width: 100%; height: 100%; object-fit: cover; }
+    .example-card__cap {
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      padding: .9rem 1.1rem;
+      font-family: var(--font-mono); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--ink); background: #fff;
+    }
+    .example-card__cap span:last-child { color: var(--clay); }
+
+    /* ---- Steps ---- */
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.5rem, 3vw, 2.5rem); counter-reset: step; }
+    .step { position: relative; padding-top: 2.75rem; }
+    .step::before {
+      counter-increment: step; content: "0" counter(step);
+      position: absolute; top: 0; left: 0;
+      font-family: var(--font-mono); font-size: .8rem; letter-spacing: .1em;
+      color: var(--clay); border-top: 2px solid var(--clay); padding-top: .5rem; width: 2.4em;
+    }
+    .step h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); margin-bottom: .6rem; }
+    .step p { color: var(--ink-soft); margin: 0; }
+    .step p + p { margin-top: .6rem; }
+
+    /* ---- Section headings: let them run on one line ---- */
+    .section__head h2 { max-width: none; }
+
+    /* ---- Intro note above the form ---- */
+    .interest-note { max-width: 90ch; color: var(--ink-soft); font-size: 1.05rem; margin-bottom: 2rem; }
+
+    /* ---- Form ---- */
+    .cform { max-width: 520px; display: grid; gap: 1.5rem; }
+    .cform label { display: block; font-family: var(--font-mono); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: .5rem; }
+    .cform .opt { color: var(--sage); letter-spacing: .1em; }
+    .cform .hint { display: block; font-family: var(--font-body); font-size: .9rem; letter-spacing: 0; text-transform: none; color: var(--ink-soft); margin-top: -.3rem; margin-bottom: .5rem; }
+    .cform input[type="email"],
+    .cform textarea {
+      width: 100%; font-family: var(--font-body); font-size: 1rem; color: var(--ink);
+      background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: .8em 1em;
+    }
+    .cform textarea { resize: vertical; min-height: 5.5em; line-height: 1.5; }
+    .cform input:focus, .cform textarea:focus { outline: 2px solid var(--sage); outline-offset: 1px; }
+
+    .cform button {
+      justify-self: start; border: none; cursor: pointer;
+      font-family: var(--font-mono); font-weight: 700; font-size: .9rem; letter-spacing: .12em; text-transform: uppercase;
+      padding: .95em 1.9em; border-radius: 999px; background: var(--ink); color: #fff;
+      transition: background .3s var(--ease), transform .3s var(--ease);
+    }
+    .cform button:hover { background: var(--clay); transform: translateY(-2px); }
+
+    .footer__links { display: flex; flex-wrap: wrap; gap: .75rem; }
+
+    @media (max-width: 720px) {
+      .steps { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="nav">
+    <a class="nav__brand" href="../decorating-guides/">← Decorating guides</a>
+    <nav class="nav__links">
+      <a class="nav__brand" href="../"><img class="nav__logo" src="../assets/img/lm-logo.svg" alt="laurenmakes" /></a>
+    </nav>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="style-hero wrap">
+    <div class="style-hero__text">
+      <p class="eyebrow reveal">Custom guides</p>
+      <h1 class="reveal">A guide like<br />this, for you</h1>
+      <p class="style-hero__lead reveal">
+        So far I've only made these for my friends, but I'm gauging interest in
+        extending it to subscriber friends!
+      </p>
+    </div>
+    <a class="example-card reveal" href="../decorating-guides/cozy-traditional">
+      <div class="example-card__frame">
+        <img src="../assets/img/vknorthstar.jpg" alt="A real custom guide I made" />
+      </div>
+      <p class="example-card__cap"><span>A real one I made</span> <span>view it →</span></p>
+    </a>
+  </section>
+
+  <!-- ============ HOW IT WORKS ============ -->
+  <section class="section" id="how">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="section__num">01 / Roughly how it'd go</span>
+        <h2>How it works</h2>
+      </div>
+      <div class="steps">
+        <div class="step reveal">
+          <h3>You send me your inspo</h3>
+          <p>A Pinterest board, a handful of saved images, whatever you've been collecting, plus a few sentences about your space and what you wish were different.</p>
+        </div>
+        <div class="step reveal">
+          <h3>I build your guide</h3>
+          <p>I go through your inspo and put together a page like the example above: your style broken down, a palette, and curated picks across thrift / DIY / splurge / buy, plus a short video walking through my choices.</p>
+        </div>
+        <div class="step reveal">
+          <h3>You bring it to life</h3>
+          <p>You get a link to keep and revisit whenever you're ready to shop, thrift, or DIY.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ INTEREST FORM ============ -->
+  <section class="section section--splurge" id="start">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="section__num">02 / Say hi</span>
+        <h2>Let me know you're interested</h2>
+      </div>
+
+      <p class="interest-note reveal">Only the email is required for now, and we can sort out the details from there. But it'd be great to hear a bit about your space and your style!</p>
+
+      <form class="cform reveal" action="https://formsubmit.co/laurenmakescontact@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="New custom guide interest form" />
+        <input type="hidden" name="_template" value="table" />
+
+        <div>
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+
+        <div>
+          <label for="notes">Anything about your space <span class="opt">optional</span></label>
+          <span class="hint">How you'd describe your style, and a bit about your space, what's missing, what you wish it felt like.</span>
+          <textarea id="notes" name="Notes about their space"></textarea>
+        </div>
+
+        <div>
+          <label for="inspo">Pinterest / inspo <span class="opt">optional</span></label>
+          <span class="hint">If you have a board handy, drop the link. Totally fine to skip and send it later.</span>
+          <textarea id="inspo" name="Pinterest / inspo"></textarea>
+        </div>
+
+        <button type="submit">I'm interested! →</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer wrap">
+    <div class="footer__links">
+      <a class="pill" href="../decorating-guides/">← Back to decorating guides</a>
+    </div>
+    <div class="footer__notes">
+      <p class="eyebrow">The fine print</p>
+      <p class="footer__note">Made alongside my YouTube channel, <a class="footer__yt" href="https://www.youtube.com/@lauren_makes" target="_blank" rel="noopener">@lauren_makes</a>.</p>
+      <p class="footer__note">Some links are affiliate links via ShopMy, I may earn a small commission at no cost to you.</p>
+      <p class="footer__note">I'm not a licensed interior designer; I provide interior decorating advice, not architectural or professional design services.</p>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js?v=8"></script>
+</body>
+</html>

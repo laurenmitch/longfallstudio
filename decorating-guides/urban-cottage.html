@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>laurenmakes</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/img/lm-logo.svg" />
+  <meta name="description" content="Urban Cottage: paint, thrift, DIY, and splurge, a complete plan for Mel." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Gabarito:wght@400;500;700;800&family=Inter:wght@400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../assets/css/main.css?v=58" />
+
+  <!-- PER-STYLE THEME — white grid + periwinkle blue (matches decorating-guides). -->
+  <style>
+    :root {
+      --paper:   #fdfdfc;
+      --paper-2: #eef1f8;
+      --clay:    #3a5bbf;
+      --sage:    #80A4ED;
+      --line:    #e3e4ec;
+    }
+    body {
+      background: #fdfdfc;
+      background-image:
+        linear-gradient(to right, rgba(20,20,26,.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(20,20,26,.05) 1px, transparent 1px);
+      background-size: 46px 46px;
+      background-attachment: fixed;
+    }
+    body::before { opacity: .015; }
+    .section--thrift  { background: linear-gradient(180deg, transparent, rgba(128,164,237,.07)); }
+    .section--diy     { background: linear-gradient(180deg, transparent, rgba(58,91,191,.05)); }
+    .section--splurge { background: var(--paper-2); }
+    .tile__note { background: rgba(253,253,252,.55); }
+  </style>
+</head>
+<body>
+
+  <header class="nav">
+    <a class="nav__brand" href="./">← Decorating guides</a>
+    <nav class="nav__links" aria-label="Other guides">
+      <a class="pill pill--light" style="--pill-hl:#f2ecd9;--pill-ink:#14141a" href="cozy-traditional">cozy traditional</a>
+      <a class="pill pill--light" style="--pill-hl:#AFA857;--pill-ink:#14141a" href="urban-cottage">urban cottage</a>
+      <a class="pill pill--light" style="--pill-hl:#AAA2AF;--pill-ink:#14141a" href="mystical-den">mystical den</a>
+      <a class="pill pill--light" style="--pill-hl:#FF6923;--pill-ink:#14141a" href="bold-naturalist">bold naturalist</a>
+      <a class="pill pill--light" style="--pill-hl:#DDDDCF;--pill-ink:#14141a" href="polished-townhome">polished townhome</a>
+      <a class="nav__brand" href="../"><img class="nav__logo" src="../assets/img/lm-logo.svg" alt="laurenmakes" /></a>
+    </nav>
+  </header>
+
+  <section class="style-hero wrap">
+    <div class="style-hero__text">
+      <p class="eyebrow reveal">Guide 02</p>
+      <h1 class="reveal">Urban Cottage</h1>
+      <p class="style-hero__lead reveal">Snow White comes home from a long day at the office, kicks off her pumps, and puts on a kettle. It's whimsical, unpretentious, and cozy. It's possible you got most of your furniture from your grandparents.</p>
+      <p class="style-hero__scroll reveal">Scroll for the full plan ↓</p>
+    </div>
+    <figure class="style-hero__star reveal">
+      <img src="../assets/img/melnorthstar.jpg" alt="Urban Cottage · north-star reference" />
+    </figure>
+  </section>
+
+  <section class="section" id="the-style">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="section__num">01 / Your style</span>
+        <h2>How i'd describe it</h2>
+      </div>
+      <div class="isnt">
+        <div class="isnt__col isnt--is reveal">
+          <h3>What it is</h3>
+          <ul><li>lived in</li><li>folk art, objects with a story, hand-painted</li><li>an intuitively collected mix of old and new</li><li>wood &amp; ceramic</li></ul>
+        </div>
+        <div class="isnt__col isnt--isnt reveal">
+          <h3>What it isn't</h3>
+          <ul><li>cluttered</li><li>digital, crisp, reproduced</li><li>Fully polished &amp; modern (or only antique!)</li><li>plastic &amp; metal</li></ul>
+        </div>
+      </div>
+      <div class="collage collage--masonry">
+        <figure class="tile tile--a"><img src="../assets/img/melinspo1.jpg" alt="" /><figcaption class="tile__note">Mismatched chairs, pendant light with chain</figcaption></figure>
+        <figure class="tile tile--b"><img src="../assets/img/melinspo2.jpg" alt="" /><figcaption class="tile__note">&quot;Granny&quot; flower print on the pillow and the planter</figcaption></figure>
+        <figure class="tile tile--c"><img src="../assets/img/melinspo3.jpg" alt="" /><figcaption class="tile__note">Quaint objects, hand painted ceramic</figcaption></figure>
+        <figure class="tile tile--d"><img src="../assets/img/melinspo4.jpg" alt="" /><figcaption class="tile__note">retro bookshelf + unusual objects</figcaption></figure>
+        <figure class="tile tile--e"><img src="../assets/img/melinspo5.jpg" alt="" /><figcaption class="tile__note">gingham, unpretentious</figcaption></figure>
+      </div>
+    </div>
+  </section>
+  <section class="section" id="throughlines">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="section__num">02 / What I am noticing</span>
+        <h2>Through-lines</h2>
+      </div>
+      <div class="throughline reveal">
+        <div class="throughline__nodes" style="grid-template-columns:repeat(4,1fr);--tl-count:4">
+          <div class="throughline__track"></div>
+          <span class="throughline__bead" style="grid-column:1"></span><span class="throughline__bead" style="grid-column:2"></span><span class="throughline__bead" style="grid-column:3"></span><span class="throughline__bead" style="grid-column:4"></span>
+          <span class="throughline__label" style="grid-column:1;grid-row:3"><img src="../assets/img/melinspo4.jpg" alt="" />small scale lamps with fabric shades</span>
+          <span class="throughline__label" style="grid-column:2;grid-row:1"><img src="../assets/img/melthrough1.jpg" alt="" />wall mounted wooden shelving</span>
+          <span class="throughline__label" style="grid-column:3;grid-row:3"><img src="../assets/img/melthrough2.jpg" alt="" />Mix and match chairs around a patinated wood table</span>
+          <span class="throughline__label" style="grid-column:4;grid-row:1"><img src="../assets/img/melthrough3.png" alt="" />tiled kitchen backsplashes</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section" id="paint">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="section__num">03 / Palette</span>
+        <h2>Recommended color palette</h2>
+      </div>
+      <div class="swatches">
+        <div class="swatch reveal">
+          <div class="swatch__chip" style="background:#AFA857"></div>
+          <p class="swatch__name">Golden Fennel</p>
+          <p class="swatch__meta">Granny in a good way</p>
+        </div>
+        <div class="swatch reveal">
+          <div class="swatch__chip" style="background:#4B4B30"></div>
+          <p class="swatch__name">Mosswood</p>
+          <p class="swatch__meta">The couch you just bought is this color</p>
+        </div>
+        <div class="swatch reveal">
+          <div class="swatch__chip" style="background:#F0EAD8"></div>
+          <p class="swatch__name">Almond Cream</p>
+          <p class="swatch__meta"></p>
+        </div>
+        <div class="swatch reveal">
+          <div class="swatch__chip" style="background:#AEC7E0"></div>
+          <p class="swatch__name">Glacier Mist</p>
+          <p class="swatch__meta">you're a baby-blue kind of gal</p>
+        </div>
+        <div class="swatch reveal">
+          <div class="swatch__chip" style="background:#6F4128"></div>
+          <p class="swatch__name">Cedar Bark</p>
+          <p class="swatch__meta"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section section--thrift">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="section__num">04 / You can find it</span>
+        <h2>What to thrift</h2>
+      </div>
+      <div class="picks">
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Thrift</span>
+            <img src="../assets/img/melthrift1.jpg" alt="" />
+          </div>
+          <h3 class="pick__name">Plate holder</h3>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Thrift</span>
+            <img src="../assets/img/melthrift4.png" alt="" />
+          </div>
+          <h3 class="pick__name">Vintage ceramics</h3>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Thrift</span>
+            <img src="../assets/img/melthrift2.jpg" alt="" />
+          </div>
+          <h3 class="pick__name">heavily patinated dinner table</h3>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Thrift</span>
+            <img src="../assets/img/melthrift3.jpg" alt="" />
+          </div>
+          <h3 class="pick__name">Half moon console table with spindle legs</h3>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Thrift</span>
+            <img src="../assets/img/melthrift5.png" alt="" />
+          </div>
+          <h3 class="pick__name">Quilt for bed</h3>
+          <p class="pick__note">This is a schoolhouse quilt, on Marketplace right now</p>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Thrift</span>
+            <img src="../assets/img/melthrift6.png" alt="" />
+          </div>
+          <h3 class="pick__name">Funky little art pieces </h3>
+          <p class="pick__note">Cyanotypes made with flowers and stem cuttings from Alamo Square!! On FB Marketplace, too cute</p>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Thrift</span>
+            <img src="../assets/img/melthrift7.png" alt="" />
+          </div>
+          <h3 class="pick__name">Vintage armchair + ottoman</h3>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Thrift</span>
+            <img src="../assets/img/melthrift8.png" alt="" />
+          </div>
+          <h3 class="pick__name">Mirrors</h3>
+          <p class="pick__note">This one would look lovely in the bathroom.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="section section--diy">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="section__num">05 / Make it</span>
+        <h2>What to DIY</h2>
+      </div>
+      <div class="picks">
+        <article class="pick pick--diy reveal">
+          <header class="pick__head">
+            <span class="pick__badge pick__badge--inline">DIY</span>
+            <h3 class="pick__name">Re-knob a dresser</h3>
+          </header>
+          <div class="pick__frame" data-tilt>
+            <img src="../assets/img/meldiy1.png" alt="" />
+          </div>
+          <div class="pick__notes"><p class="pick__notes-label">Notes</p><p>Thrift (or buy) some vintage knobs and re-knob your dresser. You could have all the knobs be different, or keep to a certain style like all blue or star shaped (like the link).</p></div>
+          <div class="pick__actions"><a class="pick__pill pick__pill--shop" href="https://go.shopmy.us/p-83160917" target="_blank" rel="sponsored nofollow noopener">Shop supplies →</a></div>
+        </article>
+        <article class="pick pick--diy reveal">
+          <header class="pick__head">
+            <span class="pick__badge pick__badge--inline">DIY</span>
+            <h3 class="pick__name">Paint switch covers</h3>
+          </header>
+          <div class="pick__frame" data-tilt>
+            <img src="../assets/img/meldiy2.webp" alt="" />
+          </div>
+          <div class="pick__notes"><p class="pick__notes-label">Notes</p><p>This comes directly from your board and feels like the PERFECT way to add the hand-painted folk art touch. Maybe have Sarah over to help with the painting. </p><p>You could buy plastic covers, paint a base coat of white, then paint over them, and seal with polyurethane.</p></div>
+          <div class="pick__actions"><a class="pick__pill" href="https://www.pinterest.com/crafts-pin/1196337404312898/" target="_blank" rel="noopener">▶ Video tutorial</a><a class="pick__pill pick__pill--credit" href="https://www.pinterest.com/parisashleyhome/" target="_blank" rel="noopener" aria-label="@parisashleyhome on Pinterest"><svg class="pick__pill-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="#E60023" d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg>@parisashleyhome</a><a class="pick__pill pick__pill--shop" href="https://amzn.to/4wB3rQ2" target="_blank" rel="sponsored nofollow noopener">Shop supplies →</a></div>
+        </article>
+        <article class="pick pick--diy reveal">
+          <header class="pick__head">
+            <span class="pick__badge pick__badge--inline">DIY</span>
+            <h3 class="pick__name">Self expression fridge</h3>
+          </header>
+          <div class="pick__frame" data-tilt>
+            <img src="../assets/img/meldiy3.jpg" alt="" />
+          </div>
+          <div class="pick__notes"><p class="pick__notes-label">Notes</p><p>Your fridge is now your Tumblr. I saw this a few times in your inspo and I love it. For once in your life you have your fridge completely to yourself, and it should be a reflection of you.</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="section section--splurge">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="section__num">06 / Worth it</span>
+        <h2>What to splurge on</h2>
+      </div>
+      <div class="picks">
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Splurge</span>
+            <img src="../assets/img/melsplurge1.png" alt="" />
+          </div>
+          <h3 class="pick__name">Original Art</h3>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Splurge</span>
+            <img src="../assets/img/melsplurge2.png" alt="" />
+          </div>
+          <h3 class="pick__name">Vintage Glass Pendant Shade</h3>
+          <a class="pick__link" href="https://go.shopmy.us/p-83111647" target="_blank" rel="sponsored nofollow noopener">Shop <span>→</span></a>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Splurge</span>
+            <img src="../assets/img/melsplurge3.png" alt="" />
+          </div>
+          <h3 class="pick__name">Chinoiserie Blue Iris Wall Candle Holder</h3>
+          <a class="pick__link" href="https://go.shopmy.us/p-83698268" target="_blank" rel="sponsored nofollow noopener">Shop <span>→</span></a>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Splurge</span>
+            <img src="../assets/img/melsplurge4.png" alt="" />
+          </div>
+          <h3 class="pick__name">Roman shades</h3>
+          <a class="pick__link" href="https://go.shopmy.us/p-80138590" target="_blank" rel="sponsored nofollow noopener">Shop <span>→</span></a>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="section ">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="section__num">07 / Items to consider</span>
+        <h2>What to buy</h2>
+      </div>
+      <div class="picks">
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Buy</span>
+            <img src="../assets/img/melshop1.png" alt="" />
+          </div>
+          <h3 class="pick__name">Seashell shaped wine stopper</h3>
+          <p class="pick__note">I mean come on</p>
+          <a class="pick__link" href="https://go.shopmy.us/p-77462003" target="_blank" rel="sponsored nofollow noopener">Shop <span>→</span></a>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Buy</span>
+            <img src="../assets/img/melbuy2.png" alt="" />
+          </div>
+          <h3 class="pick__name">Pendant Tiffany Lamp Shade</h3>
+          <p class="pick__note">I like this one because it feels a TINY bit more modern. Keep in mind it is small, so maybe place it at the bedside table. </p>
+          <a class="pick__link" href="https://go.shopmy.us/p-80136565" target="_blank" rel="sponsored nofollow noopener">Shop <span>→</span></a>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Buy</span>
+            <img src="../assets/img/melbuy3.png" alt="" />
+          </div>
+          <h3 class="pick__name">Stained Glass Suncatcher</h3>
+          <a class="pick__link" href="https://go.shopmy.us/p-80143965" target="_blank" rel="sponsored nofollow noopener">Shop <span>→</span></a>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Buy</span>
+            <img src="../assets/img/melbuy1.png" alt="" />
+          </div>
+          <h3 class="pick__name">Colored Taper Candles</h3>
+          <a class="pick__link" href="https://go.shopmy.us/p-80144848" target="_blank" rel="sponsored nofollow noopener">Shop <span>→</span></a>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Buy</span>
+            <img src="../assets/img/melbuy4.png" alt="" />
+          </div>
+          <h3 class="pick__name">Cotton Jacquard Floral Coverlet</h3>
+          <a class="pick__link" href="https://go.shopmy.us/p-80178478" target="_blank" rel="sponsored nofollow noopener">Shop <span>→</span></a>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Buy</span>
+            <img src="../assets/img/melbuy9.png" alt="" />
+          </div>
+          <h3 class="pick__name">Modern Folk Cowboy Art</h3>
+          <p class="pick__note">Cowboy Chase By Caitlin Flood-Molyneux</p>
+          <a class="pick__link" href="https://go.shopmy.us/p-83075366" target="_blank" rel="sponsored nofollow noopener">Shop <span>→</span></a>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Buy</span>
+            <img src="../assets/img/melbuy6.png" alt="" />
+          </div>
+          <h3 class="pick__name">Green Gingham Duvet</h3>
+          <a class="pick__link" href="https://go.shopmy.us/p-80181079" target="_blank" rel="sponsored nofollow noopener">Shop <span>→</span></a>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Buy</span>
+            <img src="../assets/img/melbuy7.png" alt="" />
+          </div>
+          <h3 class="pick__name">Gingham Curtains</h3>
+          <a class="pick__link" href="https://go.shopmy.us/p-82494575" target="_blank" rel="sponsored nofollow noopener">Shop <span>→</span></a>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Buy</span>
+            <img src="../assets/img/melbuy15.png" alt="" />
+          </div>
+          <h3 class="pick__name">London Pub Bar Art Print</h3>
+          <a class="pick__link" href="https://go.shopmy.us/p-83159230" target="_blank" rel="sponsored nofollow noopener">Shop <span>→</span></a>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Buy</span>
+            <img src="../assets/img/melbuy8.png" alt="" />
+          </div>
+          <h3 class="pick__name">Lee Hand-Knotted Wool Rug</h3>
+          <p class="pick__note">Hear me out, a single color wool rug is more modern and could help balance all the vintage pieces. </p>
+          <a class="pick__link" href="https://go.shopmy.us/p-83040796" target="_blank" rel="sponsored nofollow noopener">Shop <span>→</span></a>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Buy</span>
+            <img src="../assets/img/melbuy11.png" alt="" />
+          </div>
+          <h3 class="pick__name">Patterned Shower Curtain (Chocolate)</h3>
+          <p class="pick__note">Notice the silly little frog playing guitar</p>
+          <a class="pick__link" href="https://go.shopmy.us/p-83098560" target="_blank" rel="sponsored nofollow noopener">Shop <span>→</span></a>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Buy</span>
+            <img src="../assets/img/melbuy12.png" alt="" />
+          </div>
+          <h3 class="pick__name">Classic Linen-Blend Window Panel</h3>
+          <p class="pick__note">perfect for a small window. It's just so simple and dainty, I love it.</p>
+          <a class="pick__link" href="https://go.shopmy.us/p-83099233" target="_blank" rel="sponsored nofollow noopener">Shop <span>→</span></a>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Buy</span>
+            <img src="../assets/img/melbuy13.png" alt="" />
+          </div>
+          <h3 class="pick__name">Ceramic Table Lamp Blue</h3>
+          <p class="pick__note">A very interesting lamp at a great price, and the right color. (Target designed with Studio McGee) </p>
+          <a class="pick__link" href="https://go.shopmy.us/p-83100266" target="_blank" rel="sponsored nofollow noopener">Shop <span>→</span></a>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Buy</span>
+            <img src="../assets/img/melbuy14.png" alt="" />
+          </div>
+          <h3 class="pick__name">Miniature Abstract Women Oil Painting, Framed Figural Art</h3>
+          <p class="pick__note">This is so stunning. And its original, you pick the color.</p>
+          <a class="pick__link" href="https://go.shopmy.us/p-83158637" target="_blank" rel="sponsored nofollow noopener">Shop <span>→</span></a>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Buy</span>
+            <img src="../assets/img/melbuy16.png" alt="" />
+          </div>
+          <h3 class="pick__name">Handmade Clay Name Fridge Magnets</h3>
+          <a class="pick__link" href="https://go.shopmy.us/p-83705000" target="_blank" rel="sponsored nofollow noopener">Shop <span>→</span></a>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Buy</span>
+            <img src="../assets/img/melbuy17.png" alt="" />
+          </div>
+          <h3 class="pick__name">Silver star magnets</h3>
+          <p class="pick__note">For the fridge!</p>
+          <a class="pick__link" href="https://go.shopmy.us/p-83706620" target="_blank" rel="sponsored nofollow noopener">Shop <span>→</span></a>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Buy</span>
+            <img src="../assets/img/melbuy18.png" alt="" />
+          </div>
+          <h3 class="pick__name">Within immediate reach By Josh Peters</h3>
+          <a class="pick__link" href="https://go.shopmy.us/p-83762588" target="_blank" rel="sponsored nofollow noopener">Shop <span>→</span></a>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Buy</span>
+            <img src="../assets/img/melbuy20.png" alt="" />
+          </div>
+          <h3 class="pick__name">Hand-Braided Indoor/Outdoor Rug</h3>
+          <p class="pick__note">for under the round kitchen table area</p>
+          <a class="pick__link" href="https://go.shopmy.us/p-83764846" target="_blank" rel="sponsored nofollow noopener">Shop <span>→</span></a>
+        </article>
+        <article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">Buy</span>
+            <img src="../assets/img/melbuy21.png" alt="" />
+          </div>
+          <h3 class="pick__name">Small Fish Rug for the Kitchen</h3>
+          <p class="pick__note">come on!!</p>
+          <a class="pick__link" href="https://go.shopmy.us/p-83765200" target="_blank" rel="sponsored nofollow noopener">Shop <span>→</span></a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer wrap">
+    <h2 style="max-width:none;">That's the whole home.</h2>
+    <div class="footer__links">
+      <a class="pill" href="./">← Back to decorating guides</a>
+    </div>
+    <div class="footer__notes">
+      <p class="footer__note">Made alongside my YouTube channel, <a class="footer__yt" href="https://www.youtube.com/@lauren_makes" target="_blank" rel="noopener">@lauren_makes</a>.</p>
+      <p class="footer__note">Some links are affiliate links via ShopMy, I may earn a small commission at no cost to you.</p>
+      <p class="footer__note">Want a guide like this, just for you? <a class="footer__yt" href="../interest/">Let me know →</a></p>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js?v=8"></script>
+</body>
+</html>

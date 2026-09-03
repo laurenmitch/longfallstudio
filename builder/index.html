@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DESIGN BUILDER</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400;500;700;800&family=Playfair+Display:ital@1&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  *,*::before,*::after{ box-sizing:border-box; }
+  :root{
+    --ink:#1a1712; --soft:#5e564a; --blue:#80A4ED; --blue-ink:#3a5bbf;
+    --paper:#fdfdfc; --panel:#ffffff; --line:#e3e4ec; --panel-2:#eef1f8;
+    --fs-display:"Gabarito","Inter",system-ui,sans-serif;
+    --fs-body:"Inter",system-ui,-apple-system,sans-serif;
+    --fs-mono:"Space Mono",ui-monospace,monospace;
+    --ease:cubic-bezier(.22,1,.36,1);
+  }
+  html{ -webkit-font-smoothing:antialiased; }
+  body{
+    margin:0; color:var(--ink); font-family:var(--fs-body); line-height:1.5;
+    background:var(--paper);
+    background-image:
+      linear-gradient(to right, rgba(20,20,26,.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(20,20,26,.045) 1px, transparent 1px);
+    background-size:44px 44px;
+  }
+
+  /* ---- Top bar ---- */
+  .bar{
+    position:sticky; top:0; z-index:20;
+    display:flex; flex-wrap:wrap; align-items:center; gap:.75rem 1rem;
+    padding:.85rem clamp(1rem,3vw,2rem);
+    background:rgba(253,253,252,.9); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .bar__title{ font-family:var(--fs-display); font-weight:800; font-size:1.05rem; letter-spacing:-.01em; margin-right:.25rem; }
+  .bar__title b{ color:var(--blue-ink); }
+  select, .btn{
+    font-family:var(--fs-body); font-size:.85rem; color:var(--ink);
+    border:1px solid var(--line); background:#fff; border-radius:8px;
+    padding:.5rem .7rem; cursor:pointer; transition:border-color .2s var(--ease), background .2s var(--ease);
+  }
+  select{ min-width:150px; max-width:230px; }
+  .btn:hover{ border-color:var(--blue); }
+  .btn--primary{ background:var(--ink); color:#fff; border-color:var(--ink); font-weight:600; }
+  .btn--primary:hover{ background:var(--blue-ink); border-color:var(--blue-ink); }
+  .btn--ghost{ background:transparent; }
+  .spacer{ flex:1 1 auto; }
+  .status{ font-family:var(--fs-mono); font-size:.68rem; letter-spacing:.04em; color:var(--soft); white-space:nowrap; }
+  .status b{ color:#2e8b57; }
+  .barnote{ flex:1 0 100%; font-family:var(--fs-mono); font-size:.66rem; letter-spacing:.03em; color:var(--soft); padding-top:.15rem; }
+  .barnote.warn{ color:#a9741b; }
+  #backupBtn.nudge{ border-color:#e0a13a; background:#fff7e6; color:#8a5a00; }
+
+  /* ---- Layout ---- */
+  main{ max-width:820px; margin:0 auto; padding:clamp(1.25rem,4vw,2.5rem) clamp(1rem,3vw,2rem) 6rem; }
+  .lede{ margin:0 0 1.75rem; color:var(--soft); font-size:.95rem; max-width:60ch; }
+  .lede b{ color:var(--ink); }
+
+  .section{
+    background:var(--panel); border:1px solid var(--line); border-radius:14px;
+    padding:clamp(1.1rem,2.5vw,1.6rem); margin-bottom:1.15rem;
+    box-shadow:0 6px 20px rgba(24,24,30,.04);
+  }
+  .section__num{ font-family:var(--fs-mono); font-size:.66rem; letter-spacing:.18em; text-transform:uppercase; color:var(--blue-ink); }
+  .section__title{ font-family:var(--fs-display); font-weight:700; font-size:1.35rem; letter-spacing:-.01em; margin:.15rem 0 .35rem; }
+  .section__intro{ color:var(--soft); font-size:.88rem; margin:0 0 1.1rem; max-width:58ch; }
+
+  .field{ margin-bottom:1rem; }
+  .field:last-child{ margin-bottom:0; }
+  label.lbl{ display:block; font-size:.82rem; font-weight:600; margin-bottom:.35rem; }
+  .hint{ font-weight:400; color:var(--soft); font-size:.78rem; }
+  input[type=text], textarea{
+    width:100%; font-family:var(--fs-body); font-size:.92rem; color:var(--ink);
+    border:1px solid var(--line); border-radius:9px; padding:.6rem .7rem; background:#fff;
+    transition:border-color .2s var(--ease), box-shadow .2s var(--ease);
+  }
+  input[type=text]:focus, textarea:focus{ outline:none; border-color:var(--blue); box-shadow:0 0 0 3px rgba(128,164,237,.18); }
+  textarea{ resize:vertical; min-height:70px; line-height:1.5; }
+  input::placeholder, textarea::placeholder{ color:#b7b3ab; }
+
+  /* list rows */
+  .row{ display:flex; gap:.6rem; align-items:flex-start; margin-bottom:.6rem; }
+  .row__grip{ font-family:var(--fs-mono); font-size:.7rem; color:#c3bfb6; padding-top:.7rem; width:1.4rem; text-align:right; flex:0 0 auto; }
+  .row__body{ flex:1 1 auto; display:grid; gap:.45rem; }
+  .row__sub2{ display:grid; grid-template-columns:1fr 1fr; gap:.45rem; }
+  .row__actions{ flex:0 0 auto; display:flex; flex-direction:column; gap:.3rem; margin-top:.35rem; }
+  .move{ display:block; border:1px solid var(--line); background:#fff; color:var(--soft); border-radius:6px; width:32px; height:24px; padding:0; cursor:pointer; font-size:.8rem; line-height:1; }
+  .move:hover:not(:disabled){ border-color:var(--blue); color:var(--blue-ink); }
+  .move:disabled{ opacity:.28; cursor:default; }
+  .del{ flex:0 0 auto; border:1px solid var(--line); background:#fff; color:var(--soft); border-radius:8px; width:32px; height:32px; cursor:pointer; font-size:1rem; line-height:1; }
+  .del:hover{ border-color:#e0563f; color:#e0563f; }
+  .add{ font-family:var(--fs-mono); font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; color:var(--blue-ink); background:transparent; border:1px dashed var(--blue); border-radius:8px; padding:.5rem .8rem; cursor:pointer; }
+  .add:hover{ background:var(--panel-2); }
+
+  .colorwrap{ display:flex; gap:.45rem; align-items:center; }
+  input[type=color]{ width:42px; height:38px; border:1px solid var(--line); border-radius:8px; background:#fff; padding:2px; cursor:pointer; flex:0 0 auto; }
+  .colorwrap input[type=text]{ max-width:130px; font-family:var(--fs-mono); font-size:.8rem; }
+
+  /* overlay (preview) */
+  .overlay{ position:fixed; inset:0; z-index:50; background:rgba(20,20,26,.5); display:none; align-items:flex-start; justify-content:center; padding:3vh 1rem; overflow:auto; }
+  .overlay.open{ display:flex; }
+  .sheet{ background:#fff; max-width:720px; width:100%; border-radius:16px; padding:clamp(1.5rem,4vw,2.5rem); box-shadow:0 30px 80px rgba(0,0,0,.35); }
+  .sheet h2{ font-family:var(--fs-display); font-weight:800; margin:0 0 1rem; }
+  .sheet h3{ font-family:var(--fs-display); margin:1.4rem 0 .4rem; font-size:1.05rem; }
+  .sheet p{ margin:.2rem 0; }
+  .sheet ul{ margin:.3rem 0 .3rem 1.1rem; padding:0; }
+  .sheet .muted{ color:var(--soft); }
+  .sheet .close{ float:right; }
+  .sheet .chip{ display:inline-block; width:16px; height:16px; border-radius:4px; vertical-align:middle; margin-right:.4rem; border:1px solid rgba(0,0,0,.1); }
+  .toast{ position:fixed; bottom:1.25rem; left:50%; transform:translateX(-50%) translateY(20px); background:var(--ink); color:#fff; padding:.7rem 1.1rem; border-radius:10px; font-size:.85rem; opacity:0; pointer-events:none; transition:all .35s var(--ease); z-index:60; }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+  @media (max-width:560px){ .row__sub2{ grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+
+  <header class="bar">
+    <span class="bar__title">lauren<b>makes</b> · guide builder</span>
+    <select id="guidePick" title="Choose a friend's guide"></select>
+    <button class="btn" id="newBtn">＋ New friend</button>
+    <button class="btn btn--ghost" id="renameBtn" title="Rename this guide">✎</button>
+    <button class="btn btn--ghost" id="deleteBtn" title="Delete this guide">🗑</button>
+    <span class="spacer"></span>
+    <span class="status" id="status">—</span>
+    <button class="btn" id="previewBtn">Preview</button>
+    <button class="btn" id="backupBtn" title="Download a .json backup of ALL your guides">Backup</button>
+    <button class="btn" id="restoreBtn" title="Load a .json backup">Restore</button>
+    <button class="btn btn--primary" id="buildBtn" title="Download the finished, styled guide page">Download guide ↓</button>
+    <input type="file" id="fileInput" accept="application/json,.json" hidden />
+    <div class="barnote" id="backupInfo"></div>
+  </header>
+
+  <main>
+    <p class="lede">Fill in the blanks in <b>your own words</b> — this is your voice, not mine. Everything <b>auto-saves</b> as you type, so you can close this and come back whenever. When a guide's ready, hit <b>Download guide</b> and send me the file (and any photos) and I'll slot it into the site.</p>
+    <form id="form" autocomplete="off"></form>
+  </main>
+
+  <div class="overlay" id="overlay">
+    <div class="sheet">
+      <button class="btn close" id="closePreview">Close ✕</button>
+      <div id="previewBody"></div>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   laurenmakes — Design Guide Builder
+   Pure browser app. Data lives in localStorage (this file's origin).
+   ============================================================ */
+const KEY = 'lm_guide_builder_v1';
+const CSS_VER = 'v=58';
+
+/* ---- Content model / questions ---- */
+const SCHEMA = [
+  { id:'basics', title:'The basics',
+    intro:"Who's this guide for, and what are we calling the look?",
+    fields:[
+      {key:'friendName', type:'text', label:"Friend's name", ph:'e.g. Ren'},
+      {key:'styleName',  type:'text', label:'What are you calling this style?', ph:'e.g. Cozy Scandinavian'},
+      {key:'guideNumber',type:'text', label:'Guide number', hint:'(optional — shows as “Guide 01”)', ph:'01'},
+      {key:'boardUrl',   type:'text', label:'Their inspiration board link', hint:'(just for your notes — never shows on the guide)', ph:'Pinterest / Instagram board URL'},
+      {key:'lead',       type:'textarea', label:'Describe the vibe — like you’re texting them', ph:'Pale wood and soft light, warmed up so it feels lived-in, not showroom-cold…'},
+    ]},
+  { id:'northstar', title:'North-star image',
+    intro:'The one photo that captures the whole vibe. Send me the actual image — just name it here.',
+    fields:[
+      {key:'northStarFile', type:'text', label:'Image file name', hint:'(optional, if you have it)', ph:'e.g. ren-northstar.jpg'},
+      {key:'northStarNote', type:'textarea', label:'Why this one?', hint:'(optional)', ph:'What makes this the perfect example…'},
+    ]},
+  { id:'isisnt', title:'What it is / what it isn’t',
+    intro:'Quick contrasts. Add as many as you like.',
+    fields:[
+      {key:'whatItIs',   type:'strlist', label:'What it IS',    add:'Add a trait', ph:'e.g. Light woods — ash, birch, pine'},
+      {key:'whatItIsnt', type:'strlist', label:'What it ISN’T', add:'Add a trait', ph:'e.g. Cold, all-white, and sterile'},
+    ]},
+  { id:'throughlines', title:'Through-lines',
+    intro:'The recurring elements that show up again and again in their board — the stuff that makes it feel like *them*. Short phrases, shown connected in a line.',
+    fields:[
+      {key:'throughlines', type:'objlist', label:'Through-line elements', add:'Add a through-line',
+        subs:[
+          {key:'text',  type:'text', ph:'e.g. Empire lamps'},
+          {key:'image', type:'text', ph:'image file (optional) e.g. vk-throughline-1.jpg'},
+        ]},
+    ]},
+  { id:'inspo', title:'Inspiration notes',
+    intro:'For each inspo photo you send me, your quick take — it shows when someone hovers the image.',
+    fields:[
+      {key:'inspiration', type:'objlist', add:'Add an image note',
+        subs:[
+          {key:'note',  type:'textarea', ph:'Your hot take on this pic…'},
+          {key:'image', type:'text', ph:'image file (optional) e.g. ren-inspo-1.jpg'},
+        ]},
+    ]},
+  { id:'palette', title:'Paint palette & patterns',
+    intro:'The colors you’d actually paint — name them however you want. For a fabric, wallpaper, or print instead of a solid color, add a pattern image file and it’ll show that swatch instead of the hex color.',
+    fields:[
+      {key:'palette', type:'objlist', add:'Add a color or pattern',
+        subs:[
+          {key:'name',  type:'text',  ph:'Warm Chalk'},
+          {key:'hex',   type:'color'},
+          {key:'usage', type:'text',  ph:'Walls / trim / accent…'},
+          {key:'patternImage', type:'text', ph:'pattern image file (optional) — e.g. ticking-stripe.jpg'},
+        ]},
+    ]},
+  { id:'thrift', title:'What to thrift',
+    intro:'Second-hand scores — a name and your note.',
+    fields:[
+      {key:'thrift', type:'objlist', add:'Add a thrift pick',
+        subs:[
+          {key:'name',  type:'text', ph:'Solid wood dresser'},
+          {key:'note',  type:'textarea', ph:'Look for dovetail joints and real veneer.'},
+          {key:'image', type:'text', ph:'image file (optional)'},
+        ]},
+    ]},
+  { id:'diy', title:'What to DIY',
+    intro:'Makes & projects. Add a ShopMy link for supplies — and if you’re pointing people to someone else’s tutorial, link it and credit the creator.',
+    fields:[
+      {key:'diy', type:'objlist', add:'Add a DIY pick',
+        subs:[
+          {key:'name',       type:'text', ph:'Linen curtains'},
+          {key:'note',       type:'textarea', ph:'Hem cheap linen yardage — floor-length.'},
+          {key:'link',       type:'text', ph:'ShopMy supplies link (optional)'},
+          {key:'exampleUrl', type:'text', ph:'Example / tutorial video link (optional)'},
+          {key:'creator',    type:'text', ph:'Creator to credit — name or @handle (optional)'},
+          {key:'image',      type:'text', ph:'image file (optional)'},
+        ]},
+    ]},
+  { id:'splurge', title:'What to splurge on',
+    intro:'Worth-it pieces. ShopMy links welcome.',
+    fields:[
+      {key:'splurge', type:'objlist', add:'Add a splurge pick',
+        subs:[
+          {key:'name',  type:'text', ph:'The sofa'},
+          {key:'note',  type:'textarea', ph:'You sit on it daily — buy the good frame once.'},
+          {key:'link',  type:'text', ph:'ShopMy link (optional)'},
+          {key:'image', type:'text', ph:'image file (optional)'},
+        ]},
+    ]},
+  { id:'buy', title:'What to buy',
+    intro:'The everyday shopping list. ShopMy links welcome.',
+    fields:[
+      {key:'buy', type:'objlist', add:'Add a buy pick',
+        subs:[
+          {key:'name',  type:'text', ph:'Linen bedding set'},
+          {key:'note',  type:'textarea', ph:'Stonewashed, in oat or clay.'},
+          {key:'link',  type:'text', ph:'ShopMy link (optional)'},
+          {key:'image', type:'text', ph:'image file (optional)'},
+        ]},
+    ]},
+];
+
+/* ---- Helpers ---- */
+const $ = sel => document.querySelector(sel);
+function uid(){ return 'g_' + Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function slug(s){ return (String(s||'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')) || 'guide'; }
+function blankGuide(name){
+  return {
+    friendName:name||'', styleName:'', guideNumber:'', boardUrl:'', lead:'',
+    northStarFile:'', northStarNote:'',
+    whatItIs:[''], whatItIsnt:[''],
+    throughlines:[{text:'',image:''}],
+    inspiration:[{note:'',image:''}],
+    palette:[{name:'',hex:'#efeae0',usage:'',patternImage:''}],
+    thrift:[{name:'',note:'',image:''}],
+    diy:[{name:'',note:'',link:'',exampleUrl:'',creator:'',image:''}],
+    splurge:[{name:'',note:'',link:'',image:''}],
+    buy:[{name:'',note:'',link:'',image:''}],
+  };
+}
+
+/* ---- State + storage ---- */
+let state = migrate(load());
+function load(){
+  try{ const raw = localStorage.getItem(KEY); if(raw) return JSON.parse(raw); }catch(e){}
+  const g = blankGuide('VK'); const id = uid();
+  return { guides:{ [id]:g }, activeId:id };
+}
+/* One-time cleanup: pull any inspiration-board URL sitting at the top of
+   `lead` out into its own notes-only `boardUrl` field (never rendered). */
+function migrate(s){
+  Object.values((s&&s.guides)||{}).forEach(g=>{
+    if(g.boardUrl===undefined){
+      g.boardUrl='';
+      const m = String(g.lead||'').match(/^\s*(https?:\/\/\S+)\s*([\s\S]*)$/);
+      if(m){ g.boardUrl=m[1]; g.lead=m[2].replace(/^\s+/,''); }
+    }
+    if(g.throughlines===undefined) g.throughlines=[{text:'',image:''}];
+    else g.throughlines = g.throughlines.map(t=> typeof t==='string' ? {text:t, image:''} : t);
+    (g.palette||[]).forEach(c=>{ if(c.patternImage===undefined) c.patternImage=''; });
+  });
+  return s;
+}
+let saveTimer=null;
+function save(now){
+  state.lastEdit = Date.now();
+  renderBackupInfo();
+  clearTimeout(saveTimer);
+  const doIt=()=>{
+    try{ localStorage.setItem(KEY, JSON.stringify(state)); setStatus(true); }
+    catch(e){ setStatus(false); }
+  };
+  if(now) doIt(); else saveTimer=setTimeout(doIt,350);
+}
+function setStatus(ok){
+  const t = new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'});
+  $('#status').innerHTML = ok ? `<b>✓ Saved</b> · ${t}` : `⚠ couldn’t save`;
+}
+function timeAgo(ts){
+  if(!ts) return null;
+  const diff = Date.now()-ts, m=60000, h=3600000, d=86400000;
+  if(diff<m) return 'just now';
+  if(diff<h){ const n=Math.round(diff/m); return n+' min ago'; }
+  if(diff<d){ const n=Math.floor(diff/h); return n+' hour'+(n>1?'s':'')+' ago'; }
+  const n=Math.floor(diff/d);
+  if(n<=7) return n+' day'+(n>1?'s':'')+' ago';
+  return 'on '+new Date(ts).toLocaleDateString([], {month:'short',day:'numeric'});
+}
+function renderBackupInfo(){
+  const el=$('#backupInfo'), btn=$('#backupBtn'); if(!el) return;
+  const lb=state.lastBackup, le=state.lastEdit;
+  if(!lb){
+    el.className='barnote warn';
+    el.innerHTML='⚠ <b>Not backed up yet</b> — click “Backup” before switching devices.';
+    if(btn) btn.classList.add('nudge');
+  } else if(le && le>lb){
+    el.className='barnote warn';
+    el.innerHTML=`● <b>Changes since last backup</b> (last backup ${timeAgo(lb)}) — back up before switching devices.`;
+    if(btn) btn.classList.add('nudge');
+  } else {
+    el.className='barnote';
+    el.innerHTML=`✓ Last backed up ${timeAgo(lb)}.`;
+    if(btn) btn.classList.remove('nudge');
+  }
+}
+function active(){ return state.guides[state.activeId]; }
+function guideLabel(g){ return (g.friendName||'').trim() ? g.friendName + (g.styleName?` — ${g.styleName}`:'') : (g.styleName||'Untitled guide'); }
+
+/* ---- Render form ---- */
+const form = $('#form');
+function render(){
+  renderPicker();
+  const g = active();
+  let html='';
+  SCHEMA.forEach((sec,i)=>{
+    html += `<section class="section"><span class="section__num">${String(i+1).padStart(2,'0')}</span>`;
+    html += `<h2 class="section__title">${esc(sec.title)}</h2>`;
+    if(sec.intro) html += `<p class="section__intro">${esc(sec.intro)}</p>`;
+    sec.fields.forEach(f=>{ html += renderField(f, g); });
+    html += `</section>`;
+  });
+  form.innerHTML = html;
+  renderBackupInfo();
+}
+function renderPicker(){
+  const sel = $('#guidePick');
+  sel.innerHTML = Object.keys(state.guides).map(id=>
+    `<option value="${id}"${id===state.activeId?' selected':''}>${esc(guideLabel(state.guides[id]))}</option>`
+  ).join('');
+}
+function labelHTML(f){
+  if(!f.label) return '';
+  return `<label class="lbl">${esc(f.label)}${f.hint?` <span class="hint">${esc(f.hint)}</span>`:''}</label>`;
+}
+function renderField(f, g){
+  if(f.type==='text' || f.type==='textarea'){
+    const v = esc(g[f.key]);
+    const ctrl = f.type==='textarea'
+      ? `<textarea data-field="${f.key}" placeholder="${esc(f.ph||'')}">${v}</textarea>`
+      : `<input type="text" data-field="${f.key}" value="${v}" placeholder="${esc(f.ph||'')}" />`;
+    return `<div class="field">${labelHTML(f)}${ctrl}</div>`;
+  }
+  if(f.type==='strlist'){
+    const arr = g[f.key]||[];
+    let rows = arr.map((v,idx)=>`
+      <div class="row">
+        <span class="row__grip">${idx+1}</span>
+        <div class="row__body"><input type="text" data-field="${f.key}" data-index="${idx}" value="${esc(v)}" placeholder="${esc(f.ph||'')}" /></div>
+        ${rowActions(f.key, idx, arr.length)}
+      </div>`).join('');
+    return `<div class="field">${labelHTML(f)}${rows}
+      <button class="add" data-action="add" data-field="${f.key}">＋ ${esc(f.add||'Add')}</button></div>`;
+  }
+  if(f.type==='objlist'){
+    const arr = g[f.key]||[];
+    let rows = arr.map((obj,idx)=>{
+      let inner = f.subs.map(s=>renderSub(f.key, idx, s, obj[s.key])).join('');
+      return `<div class="row">
+        <span class="row__grip">${idx+1}</span>
+        <div class="row__body">${inner}</div>
+        ${rowActions(f.key, idx, arr.length)}
+      </div>`;
+    }).join('');
+    return `<div class="field">${labelHTML(f)}${rows}
+      <button class="add" data-action="add" data-field="${f.key}">＋ ${esc(f.add||'Add')}</button></div>`;
+  }
+  return '';
+}
+function rowActions(field, idx, len){
+  return `<div class="row__actions">
+        <button class="move" data-action="moveup" data-field="${field}" data-index="${idx}" title="Move up"${idx===0?' disabled':''}>↑</button>
+        <button class="move" data-action="movedown" data-field="${field}" data-index="${idx}" title="Move down"${idx===len-1?' disabled':''}>↓</button>
+        <button class="del" data-action="del" data-field="${field}" data-index="${idx}" title="Remove">×</button>
+      </div>`;
+}
+function renderSub(field, idx, s, val){
+  if(s.type==='color'){
+    const hex = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(val||'') ? val : '#efeae0';
+    return `<div class="colorwrap">
+      <input type="color" data-field="${field}" data-index="${idx}" data-sub="${s.key}" value="${esc(hex)}" />
+      <input type="text" data-field="${field}" data-index="${idx}" data-sub="${s.key}" value="${esc(val||'')}" placeholder="#efeae0" />
+    </div>`;
+  }
+  if(s.type==='textarea'){
+    return `<textarea data-field="${field}" data-index="${idx}" data-sub="${s.key}" placeholder="${esc(s.ph||'')}">${esc(val||'')}</textarea>`;
+  }
+  return `<input type="text" data-field="${field}" data-index="${idx}" data-sub="${s.key}" value="${esc(val||'')}" placeholder="${esc(s.ph||'')}" />`;
+}
+
+/* ---- Two-way binding (no re-render on text input, to keep focus) ---- */
+form.addEventListener('input', e=>{
+  const el = e.target; const field = el.dataset.field; if(!field) return;
+  const g = active();
+  const idx = el.dataset.index, sub = el.dataset.sub;
+  if(idx===undefined){ g[field] = el.value; }
+  else if(sub===undefined){ g[field][+idx] = el.value; }
+  else { g[field][+idx][sub] = el.value; }
+  // keep paired color/text inputs in sync
+  if(sub){
+    form.querySelectorAll(`[data-field="${field}"][data-index="${idx}"][data-sub="${sub}"]`).forEach(x=>{ if(x!==el) x.value = el.value; });
+  }
+  // live-update the picker label when name/style changes
+  if(field==='friendName' || field==='styleName'){
+    const opt = $('#guidePick').querySelector(`option[value="${state.activeId}"]`);
+    if(opt) opt.textContent = guideLabel(g);
+  }
+  save();
+});
+form.addEventListener('click', e=>{
+  const btn = e.target.closest('[data-action]'); if(!btn) return;
+  const field = btn.dataset.field, act = btn.dataset.action, g = active();
+  if(act==='add'){
+    const sec = SCHEMA.flatMap(s=>s.fields).find(f=>f.key===field);
+    if(sec.type==='strlist') g[field].push('');
+    else { const o={}; sec.subs.forEach(s=> o[s.key] = s.type==='color'?'#efeae0':''); g[field].push(o); }
+  }
+  if(act==='del'){
+    g[field].splice(+btn.dataset.index,1);
+    if(g[field].length===0){ // keep at least one empty row
+      const sec = SCHEMA.flatMap(s=>s.fields).find(f=>f.key===field);
+      if(sec.type==='strlist') g[field].push('');
+      else { const o={}; sec.subs.forEach(s=> o[s.key] = s.type==='color'?'#efeae0':''); g[field].push(o); }
+    }
+  }
+  if(act==='moveup' || act==='movedown'){
+    const idx = +btn.dataset.index;
+    const swapWith = act==='moveup' ? idx-1 : idx+1;
+    const arr = g[field];
+    if(swapWith>=0 && swapWith<arr.length){ [arr[idx],arr[swapWith]] = [arr[swapWith],arr[idx]]; }
+  }
+  save(true); render();
+});
+
+/* ---- Guide management ---- */
+$('#guidePick').addEventListener('change', e=>{ state.activeId = e.target.value; save(true); render(); });
+$('#newBtn').addEventListener('click', ()=>{
+  const name = prompt("New friend's name (you can change it later):",'');
+  if(name===null) return;
+  const id = uid(); state.guides[id] = blankGuide(name.trim()); state.activeId = id; save(true); render(); toast('New guide created');
+});
+$('#renameBtn').addEventListener('click', ()=>{
+  const g = active(); const name = prompt("Friend's name:", g.friendName||'');
+  if(name===null) return; g.friendName = name.trim(); save(true); render();
+});
+$('#deleteBtn').addEventListener('click', ()=>{
+  const ids = Object.keys(state.guides);
+  if(ids.length<=1){ toast('Can’t delete your only guide'); return; }
+  if(!confirm(`Delete “${guideLabel(active())}”? This can’t be undone (unless you have a backup).`)) return;
+  delete state.guides[state.activeId];
+  state.activeId = Object.keys(state.guides)[0];
+  save(true); render(); toast('Guide deleted');
+});
+
+/* ---- Backup / restore (JSON) ---- */
+function download(filename, text, type){
+  const blob = new Blob([text], {type:type||'text/plain'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href=url; a.download=filename; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url), 1500);
+}
+$('#backupBtn').addEventListener('click', ()=>{
+  state.lastBackup = Date.now();
+  try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
+  const date = new Date().toISOString().slice(0,10);
+  download(`laurenmakes-guides-backup-${date}.json`, JSON.stringify(state, null, 2), 'application/json');
+  renderBackupInfo(); setStatus(true);
+  toast('Backup downloaded');
+});
+$('#restoreBtn').addEventListener('click', ()=> $('#fileInput').click());
+$('#fileInput').addEventListener('change', e=>{
+  const file = e.target.files[0]; if(!file) return;
+  const r = new FileReader();
+  r.onload = ()=>{
+    try{
+      const data = JSON.parse(r.result);
+      const guides = data.guides || data; // accept full-state OR bare guides map
+      if(typeof guides!=='object') throw 0;
+      if(!confirm('Load this backup? It replaces what’s currently in the builder.')) return;
+      state = migrate({ guides, activeId: data.activeId && guides[data.activeId] ? data.activeId : Object.keys(guides)[0] });
+      save(true); render(); toast('Backup loaded');
+    }catch(err){ alert('Hmm, that file didn’t look like a valid backup.'); }
+    e.target.value='';
+  };
+  r.readAsText(file);
+});
+
+/* ---- Preview (readable summary of your answers) ---- */
+function previewHTML(g){
+  const list = a => (a||[]).map(x=>String(x||'').trim()).filter(Boolean);
+  const picks = (a,withLink) => (a||[]).filter(p=>(p.name||'').trim()).map(p=>
+    `<p><b>${esc(p.name)}</b>${p.note?` — ${esc(p.note)}`:''}${withLink&&p.link?` <span class="muted">(link ✓)</span>`:''}</p>`).join('') || '<p class="muted">—</p>';
+  let h = `<h2>${esc(g.styleName||'Untitled')} <span class="muted">· for ${esc(g.friendName||'?')}</span></h2>`;
+  if(g.boardUrl) h += `<p class="muted">Board (notes only, won’t publish): ${esc(g.boardUrl)}</p>`;
+  if(g.lead) h += `<p>${esc(g.lead)}</p>`;
+  h += `<h3>What it is</h3>` + (list(g.whatItIs).map(x=>`<p>— ${esc(x)}</p>`).join('') || '<p class="muted">—</p>');
+  h += `<h3>What it isn’t</h3>` + (list(g.whatItIsnt).map(x=>`<p>— ${esc(x)}</p>`).join('') || '<p class="muted">—</p>');
+  const throughlineTexts = (g.throughlines||[]).map(t=>String((t&&t.text)||'').trim()).filter(Boolean);
+  h += `<h3>Through-lines</h3>` + (throughlineTexts.length ? `<p>${throughlineTexts.join(' <span class="muted">···</span> ')}</p>` : '<p class="muted">—</p>');
+  h += `<h3>Inspiration notes</h3>` + ((g.inspiration||[]).filter(i=>(i.note||'').trim()).map(i=>`<p class="muted">“${esc(i.note)}”</p>`).join('') || '<p class="muted">—</p>');
+  h += `<h3>Palette</h3>` + ((g.palette||[]).filter(c=>(c.name||'').trim()||(c.usage||'').trim()).map(c=>{
+    const isPattern = (c.patternImage||'').trim();
+    const chip = isPattern ? `<span class="chip" style="background:repeating-linear-gradient(45deg,#ccc,#ccc 2px,#eee 2px,#eee 4px)" title="pattern: ${esc(c.patternImage)}"></span>` : `<span class="chip" style="background:${esc(c.hex||'#eee')}"></span>`;
+    return `<p>${chip}<b>${esc(c.name||'—')}</b> <span class="muted">${esc(c.usage||'')}${isPattern?' · pattern':''}</span></p>`;
+  }).join('') || '<p class="muted">—</p>');
+  h += `<h3>Thrift</h3>` + picks(g.thrift);
+  h += `<h3>DIY</h3>` + picks(g.diy,true);
+  h += `<h3>Splurge</h3>` + picks(g.splurge,true);
+  h += `<h3>Buy</h3>` + picks(g.buy,true);
+  return h;
+}
+$('#previewBtn').addEventListener('click', ()=>{ $('#previewBody').innerHTML = previewHTML(active()); $('#overlay').classList.add('open'); });
+$('#closePreview').addEventListener('click', ()=> $('#overlay').classList.remove('open'));
+$('#overlay').addEventListener('click', e=>{ if(e.target.id==='overlay') $('#overlay').classList.remove('open'); });
+
+/* ---- Build the finished, styled guide page ---- */
+/* Creator credit pill. A channel on a platform we have a mark for gets the logo
+   and the handle; anything else gets "by @handle". A bare handle borrows its
+   platform from the tutorial link. */
+const TT_NOTE = 'M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z';
+const MARKS = {
+  youtube: '<svg class="pick__pill-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="#FF0000" d="M23.5 6.2a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.51A3.02 3.02 0 0 0 .5 6.2C0 8.07 0 12 0 12s0 3.93.5 5.8a3.02 3.02 0 0 0 2.12 2.14c1.88.51 9.38.51 9.38.51s7.5 0 9.38-.51a3.02 3.02 0 0 0 2.12-2.14c.5-1.87.5-5.8.5-5.8s0-3.93-.5-5.8z"/><path fill="#fff" d="M9.55 15.57 15.82 12 9.55 8.43z"/></svg>',
+  tiktok: `<svg class="pick__pill-mark" viewBox="0 0 27 27" aria-hidden="true" focusable="false"><path fill="#25F4EE" transform="translate(0 3)" d="${TT_NOTE}"/><path fill="#FE2C55" transform="translate(3 0)" d="${TT_NOTE}"/><path fill="#000" transform="translate(1.5 1.5)" d="${TT_NOTE}"/></svg>`,
+  pinterest: '<svg class="pick__pill-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="#E60023" d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg>'
+};
+const PLATFORM_LABEL = { youtube:'YouTube', tiktok:'TikTok', pinterest:'Pinterest' };
+function platformOf(host){
+  if(host.includes('youtube.com') || host.includes('youtu.be')) return 'youtube';
+  if(host.includes('tiktok.com'))    return 'tiktok';
+  if(host.includes('pinterest.'))    return 'pinterest';
+  return '';
+}
+function creditPill(creator, exampleUrl){
+  const raw = String(creator||'').trim();
+  if(!raw) return '';
+  let url='', handle=raw, host='';
+  if(/^https?:\/\//i.test(raw)){
+    url = raw;
+    const m = raw.match(/^https?:\/\/(?:www\.)?([^\/]+)\/(@?[^\/?#]+)/i);
+    if(m){ host = m[1].toLowerCase(); handle = decodeURIComponent(m[2]); }
+  }else{
+    const m = String(exampleUrl||'').trim().match(/^https?:\/\/(?:www\.)?([^\/]+)\//i);
+    const h = raw.replace(/^@/,'');
+    if(m){
+      host = m[1].toLowerCase();
+      const p = platformOf(host);
+      if(p==='youtube')        url = 'https://www.youtube.com/@'+h;
+      else if(p==='tiktok')    url = 'https://www.tiktok.com/@'+h;
+      else if(p==='pinterest') url = 'https://www.pinterest.com/'+h+'/';
+    }
+  }
+  if(!handle.startsWith('@')) handle = '@'+handle;
+  if(!url) return `<span class="pick__pill pick__pill--credit">by ${esc(handle)}</span>`;
+  const p = platformOf(host);
+  if(MARKS[p])
+    return `<a class="pick__pill pick__pill--credit" href="${esc(url)}" target="_blank" rel="noopener" aria-label="${esc(handle)} on ${PLATFORM_LABEL[p]}">${MARKS[p]}${esc(handle)}</a>`;
+  return `<a class="pick__pill pick__pill--credit" href="${esc(url)}" target="_blank" rel="noopener">by ${esc(handle)}</a>`;
+}
+function imgPath(file, fallback){
+  const f = String(file||'').trim();
+  if(!f) return '../assets/img/'+fallback;
+  if(/^https?:\/\//i.test(f)) return f;
+  return '../assets/img/'+f;
+}
+function buildGuideHTML(g){
+  const styleName = g.styleName || 'Untitled style';
+  const num = (g.guideNumber||'').trim() || String(Object.keys(state.guides).indexOf(state.activeId)+1).padStart(2,'0');
+  const lead = g.lead || '';
+  const isList   = (g.whatItIs  ||[]).map(x=>String(x||'').trim()).filter(Boolean);
+  const isntList = (g.whatItIsnt||[]).map(x=>String(x||'').trim()).filter(Boolean);
+  const throughLines = (g.throughlines||[]).filter(t=>((t&&t.text)||'').trim());
+  const inspo    = (g.inspiration||[]).filter(i=>(i.note||'').trim()||(i.image||'').trim());
+  const palette  = (g.palette||[]).filter(c=>(c.name||'').trim()||(c.usage||'').trim());
+  const hasPattern = palette.some(c=>(c.patternImage||'').trim());
+  const tileClasses=['tile--a','tile--b','tile--c','tile--d','tile--e'];
+  const inspoDefaults=['inspo-1.svg','inspo-2.svg','inspo-3.svg','inspo-4.svg','inspo-5.svg'];
+  const pickDefaults={thrift:['thrift-1.svg','thrift-2.svg','product-1.svg'],diy:['diy-1.svg','diy-2.svg'],splurge:['splurge-1.svg','splurge-2.svg','product-2.svg'],buy:['product-3.svg','product-4.svg','product-1.svg','product-2.svg']};
+
+  const isnt = `
+      <div class="isnt">
+        <div class="isnt__col isnt--is reveal">
+          <h3>What it is</h3>
+          <ul>${isList.map(x=>`<li>${esc(x)}</li>`).join('') || '<li>—</li>'}</ul>
+        </div>
+        <div class="isnt__col isnt--isnt reveal">
+          <h3>What it isn't</h3>
+          <ul>${isntList.map(x=>`<li>${esc(x)}</li>`).join('') || '<li>—</li>'}</ul>
+        </div>
+      </div>`;
+  const throughlines = throughLines.length ? `
+      <div class="throughline reveal">
+        <div class="throughline__nodes" style="grid-template-columns:repeat(${throughLines.length},1fr);--tl-count:${throughLines.length}">
+          <div class="throughline__track"></div>
+          ${throughLines.map((x,i)=>`<span class="throughline__bead" style="grid-column:${i+1}"></span>`).join('')}
+          ${throughLines.map((t,i)=>{
+            const img = (t.image||'').trim() ? `<img src="${esc(imgPath(t.image))}" alt="" />` : '';
+            return `<span class="throughline__label" style="grid-column:${i+1};grid-row:${i%2===0?3:1}">${img}${esc(t.text)}</span>`;
+          }).join('')}
+        </div>
+      </div>` : '';
+  const collage = inspo.length ? `
+      <div class="collage collage--masonry">
+        ${inspo.map((it,i)=>`<figure class="tile ${tileClasses[i%5]}"><img src="${esc(imgPath(it.image,inspoDefaults[i%5]))}" alt="" /><figcaption class="tile__note">${esc(it.note||'')}</figcaption></figure>`).join('\n        ')}
+      </div>` : '';
+  const swatches = palette.length ? `
+      <div class="swatches">
+        ${palette.map(c=>{
+          const isPattern = (c.patternImage||'').trim();
+          const chip = isPattern
+            ? `<img class="swatch__chip" src="${esc(imgPath(c.patternImage))}" alt="${esc(c.name||'Pattern')} pattern swatch" />`
+            : `<div class="swatch__chip" style="background:${esc(c.hex||'#eee')}"></div>`;
+          return `<div class="swatch reveal">
+          ${chip}
+          <p class="swatch__name">${esc(c.name||'')}</p>
+          <p class="swatch__meta">${esc(c.usage||'')}</p>
+        </div>`;
+        }).join('\n        ')}
+      </div>` : '';
+
+  function pickSection(kicker, title, key, badge, extraClass){
+    const items = (g[key]||[]).filter(p=>(p.name||'').trim());
+    if(!items.length) return '';
+    const numStr = N();
+    const defs = pickDefaults[key]||['product-1.svg'];
+    const cards = items.map((p,i)=>{
+      const img = esc(imgPath(p.image,defs[i%defs.length]));
+      if(key==='diy'){
+        // Editorial card: title-led header, image + Notes body, action-pill footer.
+        const pills = [];
+        if((p.exampleUrl||'').trim()) pills.push(`<a class="pick__pill" href="${esc(p.exampleUrl)}" target="_blank" rel="noopener">▶ Video tutorial</a>`);
+        if((p.creator||'').trim())    pills.push(creditPill(p.creator, p.exampleUrl));
+        if((p.link||'').trim())       pills.push(`<a class="pick__pill pick__pill--shop" href="${esc(p.link)}" target="_blank" rel="sponsored nofollow noopener">Shop supplies →</a>`);
+        const actions = pills.length ? `\n          <div class="pick__actions">${pills.join('')}</div>` : '';
+        const noteHTML = (p.note||'').trim()
+          ? (p.note||'').trim().split(/\n{2,}/).map(par=>`<p>${esc(par)}</p>`).join('')
+          : '';
+        const notes = `\n          <div class="pick__notes"><p class="pick__notes-label">Notes</p>${noteHTML}</div>`;
+        return `<article class="pick pick--diy reveal">
+          <header class="pick__head">
+            <span class="pick__badge pick__badge--inline">${esc(badge)}</span>
+            <h3 class="pick__name">${esc(p.name)}</h3>
+          </header>
+          <div class="pick__frame" data-tilt>
+            <img src="${img}" alt="" />
+          </div>${notes}${actions}
+        </article>`;
+      }
+      const note = (p.note||'').trim() ? `\n          <p class="pick__note">${esc(p.note)}</p>` : '';
+      const link = p.link ? `\n          <a class="pick__link" href="${esc(p.link)}" target="_blank" rel="sponsored nofollow noopener">Shop <span>→</span></a>` : '';
+      return `<article class="pick reveal">
+          <div class="pick__frame" data-tilt>
+            <span class="pick__badge">${esc(badge)}</span>
+            <img src="${img}" alt="" />
+          </div>
+          <h3 class="pick__name">${esc(p.name)}</h3>${note}${link}
+        </article>`;
+    }).join('\n        ');
+    return `
+  <section class="section ${extraClass||''}">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="section__num">${numStr} / ${esc(kicker)}</span>
+        <h2>${esc(title)}</h2>
+      </div>
+      <div class="picks">
+        ${cards}
+      </div>
+    </div>
+  </section>`;
+  }
+
+  // dynamic section numbering (only include sections that have content)
+  let n=0; const N=()=>String(++n).padStart(2,'0');
+  const secStyle = `
+  <section class="section" id="the-style">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="section__num">${N()} / Your style</span>
+        <h2>How i'd describe it</h2>
+      </div>${isnt}${collage}
+    </div>
+  </section>`;
+  const secThroughlines = throughlines ? `
+  <section class="section" id="throughlines">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="section__num">${N()} / What I am noticing</span>
+        <h2>Through-lines</h2>
+      </div>${throughlines}
+    </div>
+  </section>` : '';
+  const secPalette = swatches ? `
+  <section class="section" id="paint">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="section__num">${N()} / Palette</span>
+        <h2>Recommended color palette${hasPattern?' and patterns':''}</h2>
+      </div>${swatches}
+    </div>
+  </section>` : '';
+  const secThrift  = pickSection('You can find it', 'What to thrift', 'thrift', 'Thrift', 'section--thrift');
+  const secDiy     = pickSection('Make it', 'What to DIY', 'diy', 'DIY', 'section--diy');
+  const secSplurge = pickSection('Worth it', 'What to splurge on', 'splurge', 'Splurge', 'section--splurge');
+  const secBuy     = pickSection('Items to consider', 'What to buy', 'buy', 'Buy', '');
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>laurenmakes</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/img/lm-logo.svg" />
+  <meta name="description" content="${esc(styleName)}: paint, thrift, DIY, and splurge, a complete plan${g.friendName?` for ${esc(g.friendName)}`:''}." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Gabarito:wght@400;500;700;800&family=Inter:wght@400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../assets/css/main.css?${CSS_VER}" />
+
+  <!-- PER-STYLE THEME — white grid + periwinkle blue (matches decorating-guides). -->
+  <style>
+    :root {
+      --paper:   #fdfdfc;
+      --paper-2: #eef1f8;
+      --clay:    #3a5bbf;
+      --sage:    #80A4ED;
+      --line:    #e3e4ec;
+    }
+    body {
+      background: #fdfdfc;
+      background-image:
+        linear-gradient(to right, rgba(20,20,26,.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(20,20,26,.05) 1px, transparent 1px);
+      background-size: 46px 46px;
+      background-attachment: fixed;
+    }
+    body::before { opacity: .015; }
+    .section--thrift  { background: linear-gradient(180deg, transparent, rgba(128,164,237,.07)); }
+    .section--diy     { background: linear-gradient(180deg, transparent, rgba(58,91,191,.05)); }
+    .section--splurge { background: var(--paper-2); }
+    .tile__note { background: rgba(253,253,252,.55); }
+  </style>
+</head>
+<body>
+
+  <header class="nav">
+    <a class="nav__brand" href="./">← Decorating guides</a>
+    <nav class="nav__links" aria-label="Other guides">
+      <a class="pill pill--light" style="--pill-hl:#f2ecd9;--pill-ink:#14141a" href="cozy-traditional">cozy traditional</a>
+      <a class="pill pill--light" style="--pill-hl:#AFA857;--pill-ink:#14141a" href="urban-cottage">urban cottage</a>
+      <a class="pill pill--light" style="--pill-hl:#AAA2AF;--pill-ink:#14141a" href="mystical-den">mystical den</a>
+      <a class="pill pill--light" style="--pill-hl:#FF6923;--pill-ink:#14141a" href="bold-naturalist">bold naturalist</a>
+      <a class="pill pill--light" href="polished-townhome">polished townhome</a>
+      <a class="nav__brand" href="../"><img class="nav__logo" src="../assets/img/lm-logo.svg" alt="laurenmakes" /></a>
+    </nav>
+  </header>
+
+  <section class="style-hero wrap">
+    <div class="style-hero__text">
+      <p class="eyebrow reveal">Guide ${esc(num)}</p>
+      <h1 class="reveal">${esc(styleName)}</h1>
+      <p class="style-hero__lead reveal">${esc(lead)}</p>
+      <p class="style-hero__scroll reveal">Scroll for the full plan ↓</p>
+    </div>
+    <figure class="style-hero__star reveal">
+      <img src="${esc(imgPath(g.northStarFile,'inspo-1.svg'))}" alt="${esc(styleName)} · north-star reference" />
+    </figure>
+  </section>
+${secStyle}${secThroughlines}${secPalette}${secThrift}${secDiy}${secSplurge}${secBuy}
+
+  <footer class="footer wrap">
+    <h2 style="max-width:none;">That's the whole home.</h2>
+    <div class="footer__links">
+      <a class="pill" href="./">← Back to decorating guides</a>
+    </div>
+    <div class="footer__notes">
+      <p class="footer__note">Made alongside my YouTube channel, <a class="footer__yt" href="https://www.youtube.com/@lauren_makes" target="_blank" rel="noopener">@lauren_makes</a>.</p>
+      <p class="footer__note">Some links are affiliate links via ShopMy, I may earn a small commission at no cost to you.</p>
+      <p class="footer__note">Want a guide like this, just for you? <a class="footer__yt" href="../interest/">Let me know →</a></p>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js?v=8"><\/script>
+</body>
+</html>`;
+}
+$('#buildBtn').addEventListener('click', ()=>{
+  const g = active();
+  if(!(g.styleName||'').trim()){ toast('Give the style a name first'); return; }
+  download(`${slug(g.styleName)}.html`, buildGuideHTML(g), 'text/html');
+  toast('Guide page downloaded — send it over to go live');
+});
+
+/* ---- Toast ---- */
+let toastTimer=null;
+function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ---- Warn if opened in a sandbox where storage won't stick ---- */
+try{ localStorage.setItem('__t','1'); localStorage.removeItem('__t'); }
+catch(e){ setTimeout(()=>alert('Heads up: this browser is blocking local storage, so your work may not save between visits. Open the file directly from your Desktop in Chrome or Safari.'),300); }
+
+/* ---- Go ---- */
+render(); setStatus(true); renderBackupInfo();
+setInterval(renderBackupInfo, 60000);
+</script>
+</body>
+</html>
