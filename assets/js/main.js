@@ -1,5 +1,5 @@
 /* =========================================================
-   Design Inspo — interactions (vanilla JS, no libraries)
+   Design Inspo interactions (vanilla JS, no libraries)
    1. Scroll-reveal   2. Tilt-on-hover (Millls-style)   3. Marquee loop
    ========================================================= */
 
@@ -30,7 +30,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
   // Safety net: nothing should ever stay invisible if JS/observer hiccups.
   window.addEventListener("load", () => setTimeout(revealInView, 400));
 
-  // Layout can shift across breakpoints (resize / orientation) — re-check then.
+  // Layout can shift across breakpoints (resize / orientation), so re-check then.
   let rt;
   window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(revealInView, 150); });
 })();

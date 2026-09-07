@@ -1,15 +1,15 @@
 /* =========================================================
-   Design Inspo — core stylesheet
+   Design Inspo core stylesheet
    Palette: warm editorial paper + one clay accent.
    Type: Gabarito (display/labels) · Space Grotesk (masthead "design") ·
          Playfair Display italic (accent) · Inter (body) · Space Mono (mono labels)
    Everything here is plain CSS + a little JS (assets/js/main.js).
-   No frameworks — GitHub Pages serves these files as-is.
+   No frameworks. GitHub Pages serves these files as-is.
    ========================================================= */
 
 /* ---- 1. Design tokens (change these to re-theme the whole site) ---- */
 :root {
-  --paper:      #efeae0;   /* page background — Warm Chalk (1st palette color) */
+  --paper:      #efeae0;   /* page background, Warm Chalk (1st palette color) */
   --paper-2:    #e6e0d3;   /* cards / panels       */
   --ink:        #1a1712;   /* main text            */
   --ink-soft:   #5e564a;   /* secondary text       */
@@ -123,7 +123,7 @@ body::before {
   display: flex; flex-wrap: wrap; gap: 1.5rem;
 }
 
-/* Mood-board gallery — offset "collage" grid */
+/* Mood-board gallery, offset "collage" grid */
 .boards {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -208,7 +208,7 @@ body::before {
   font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
   color: var(--ink-soft);
 }
-/* North-star image — the one shot that captures this whole style */
+/* North-star image, the one shot that captures this whole style */
 .style-hero__star {
   margin: 0;
   aspect-ratio: 4 / 5;
@@ -228,7 +228,7 @@ body::before {
   color: var(--ink-soft);
 }
 
-/* 1 · The style — what it is / isn't */
+/* 1 · The style, what it is / isn't */
 .isnt {
   display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem,4vw,4rem);
   margin-bottom: clamp(2.5rem, 6vh, 5rem);
@@ -241,7 +241,7 @@ body::before {
 .isnt--is h3::after  { content: " ✓"; color: var(--sage); }
 .isnt--isnt { color: var(--ink-soft); }
 
-/* 1b · Through-lines — a little graphic: beads on a line, labels zigzag above/below */
+/* 1b · Through-lines, a little graphic: beads on a line, labels zigzag above/below */
 .throughline { position: relative; padding: .5rem 0; }
 .throughline__nodes {
   position: relative; display: grid;
@@ -285,7 +285,7 @@ body::before {
   .throughline__label img { flex-shrink: 0; width: 100px; height: 100px; max-width: none; }
 }
 
-/* Inspiration collage — tilt-on-hover tiles */
+/* Inspiration collage, tilt-on-hover tiles */
 .collage {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -300,7 +300,7 @@ body::before {
 }
 .tile img { width: 100%; height: 100%; object-fit: cover; }
 
-/* Hover note — a soft translucent cover with Lauren's thoughts on the image */
+/* Hover note, a soft translucent cover with Lauren's thoughts on the image */
 .tile__note {
   position: absolute; inset: 0;
   display: flex; align-items: center; justify-content: center;
@@ -324,7 +324,7 @@ body::before {
 .tile--d { grid-column: span 3; grid-row: span 2; }
 .tile--e { grid-column: span 3; grid-row: span 3; }
 
-/* Masonry variant — JS distributes tiles into balanced columns; photos stay uncropped */
+/* Masonry variant, JS distributes tiles into balanced columns; photos stay uncropped */
 .collage--masonry { display: flex; align-items: flex-start; gap: clamp(0.75rem, 1.5vw, 1.5rem); }
 .collage--masonry .collage__col { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: clamp(0.75rem, 1.5vw, 1.5rem); }
 .collage--masonry .tile { margin: 0; }
@@ -369,7 +369,7 @@ body::before {
 }
 .pick__link:hover { border-color: var(--clay); }
 
-/* Detail pills — extra links/credits under a pick (DIY: tutorial, creator, supplies) */
+/* Detail pills, extra links/credits under a pick (DIY: tutorial, creator, supplies) */
 .pick__meta { margin-top: 0.7rem; display: flex; flex-wrap: wrap; gap: 0.45rem; align-items: center; }
 .pick__pill {
   font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.06em; text-transform: uppercase;
@@ -482,7 +482,7 @@ a.pick__pill--shop:hover { background: var(--clay); border-color: var(--clay); c
 }
 
 /* =========================================================
-   HOMEPAGE REDESIGN — "design guides" sky photo-dump
+   HOMEPAGE REDESIGN: "design guides" sky photo-dump
    (new homepage; supersedes the old .hero/.boards styles)
    ========================================================= */
 
