@@ -74,6 +74,7 @@
 
     /* ---- Form ---- */
     .cform { max-width: 520px; display: grid; gap: 1.5rem; }
+    .cform[hidden] { display: none; }
     .cform label { display: block; font-family: var(--font-mono); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: .5rem; }
     .cform .opt { color: var(--sage); letter-spacing: .1em; }
     .cform .hint { display: block; font-family: var(--font-body); font-size: .9rem; letter-spacing: 0; text-transform: none; color: var(--ink-soft); margin-top: -.3rem; margin-bottom: .5rem; }
@@ -92,6 +93,10 @@
       transition: background .3s var(--ease), transform .3s var(--ease);
     }
     .cform button:hover { background: var(--clay); transform: translateY(-2px); }
+    .cform button[disabled] { opacity: .6; cursor: default; transform: none; }
+
+    .cform__thanks { max-width: 520px; }
+    .cform__thanks h3 { font-family: var(--font-display); font-size: 1.6rem; margin: 0; }
 
     .footer__links { display: flex; flex-wrap: wrap; gap: .75rem; }
 
@@ -161,29 +166,30 @@
 
       <p class="interest-note reveal">Only the email is required for now, and we can sort out the details from there. But it'd be great to hear a bit about your space and your style!</p>
 
-      <form class="cform reveal" action="https://formsubmit.co/laurenmakescontact@gmail.com" method="POST">
-        <input type="hidden" name="_subject" value="New custom guide interest form" />
-        <input type="hidden" name="_template" value="table" />
-
+      <form class="cform reveal" id="interest-form" action="https://docs.google.com/forms/d/e/1FAIpQLSeGVz2W7kyppe-K_TWurUuySLI0FIaCwHEwmhVQ_Vfgz83ynQ/formResponse" method="POST">
         <div>
           <label for="email">Email</label>
-          <input type="email" id="email" name="email" required />
+          <input type="email" id="email" name="entry.223699692" required />
         </div>
 
         <div>
           <label for="notes">Anything about your space <span class="opt">optional</span></label>
           <span class="hint">How you'd describe your style, and a bit about your space, what's missing, what you wish it felt like.</span>
-          <textarea id="notes" name="Notes about their space"></textarea>
+          <textarea id="notes" name="entry.2071102815"></textarea>
         </div>
 
         <div>
           <label for="inspo">Pinterest / inspo <span class="opt">optional</span></label>
           <span class="hint">If you have a board handy, drop the link. Totally fine to skip and send it later.</span>
-          <textarea id="inspo" name="Pinterest / inspo"></textarea>
+          <textarea id="inspo" name="entry.213470935"></textarea>
         </div>
 
         <button type="submit">I'm interested! →</button>
       </form>
+
+      <div class="cform__thanks reveal" id="interest-thanks" hidden>
+        <h3>Got it, thank you!</h3>
+      </div>
     </div>
   </section>
 
@@ -195,11 +201,32 @@
     <div class="footer__notes">
       <p class="eyebrow">The fine print</p>
       <p class="footer__note">Made alongside my YouTube channel, <a class="footer__yt" href="https://www.youtube.com/@lauren_makes" target="_blank" rel="noopener">@lauren_makes</a>.</p>
-      <p class="footer__note">Some links are affiliate links via ShopMy, I may earn a small commission at no cost to you.</p>
       <p class="footer__note">I'm not a licensed interior designer; I provide interior decorating advice, not architectural or professional design services.</p>
     </div>
   </footer>
 
   <script src="../assets/js/main.js?v=8"></script>
+  <script>
+    // Submit to the Google Form in the background so visitors stay on this page.
+    // Without JS the form still posts normally and lands on Google's confirmation page.
+    (function () {
+      var form = document.getElementById("interest-form");
+      var thanks = document.getElementById("interest-thanks");
+      if (!form || !thanks || !window.fetch) return;
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        var button = form.querySelector("button");
+        button.disabled = true;
+        button.textContent = "Sending…";
+        fetch(form.action, { method: "POST", mode: "no-cors", body: new FormData(form) })
+          .catch(function () {})
+          .then(function () {
+            form.hidden = true;
+            thanks.hidden = false;
+            thanks.classList.add("in");
+          });
+      });
+    })();
+  </script>
 </body>
 </html>

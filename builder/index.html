@@ -164,6 +164,7 @@ const SCHEMA = [
       {key:'styleName',  type:'text', label:'What are you calling this style?', ph:'e.g. Cozy Scandinavian'},
       {key:'guideNumber',type:'text', label:'Guide number', hint:'(optional — shows as “Guide 01”)', ph:'01'},
       {key:'boardUrl',   type:'text', label:'Their inspiration board link', hint:'(just for your notes — never shows on the guide)', ph:'Pinterest / Instagram board URL'},
+      {key:'shopmyUrl',  type:'text', label:'Their ShopMy collection link', hint:'(optional, adds a "View the full collection" line to the guide footer)', ph:'https://shopmy.us/shop/collections/…'},
       {key:'lead',       type:'textarea', label:'Describe the vibe — like you’re texting them', ph:'Pale wood and soft light, warmed up so it feels lived-in, not showroom-cold…'},
     ]},
   { id:'northstar', title:'North-star image',
@@ -261,7 +262,7 @@ function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,
 function slug(s){ return (String(s||'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')) || 'guide'; }
 function blankGuide(name){
   return {
-    friendName:name||'', styleName:'', guideNumber:'', boardUrl:'', lead:'',
+    friendName:name||'', styleName:'', guideNumber:'', boardUrl:'', shopmyUrl:'', lead:'',
     northStarFile:'', northStarNote:'',
     whatItIs:[''], whatItIsnt:[''],
     throughlines:[{text:'',image:''}],
@@ -804,14 +805,15 @@ function buildGuideHTML(g){
 ${secStyle}${secThroughlines}${secPalette}${secThrift}${secDiy}${secSplurge}${secBuy}
 
   <footer class="footer wrap">
-    <h2 style="max-width:none;">That's the whole home.</h2>
+    <h2 style="max-width:none;">That's it folks.</h2>
     <div class="footer__links">
       <a class="pill" href="./">← Back to decorating guides</a>
     </div>
     <div class="footer__notes">
       <p class="footer__note">Made alongside my YouTube channel, <a class="footer__yt" href="https://www.youtube.com/@lauren_makes" target="_blank" rel="noopener">@lauren_makes</a>.</p>
       <p class="footer__note">Some links are affiliate links via ShopMy, I may earn a small commission at no cost to you.</p>
-      <p class="footer__note">Want a guide like this, just for you? <a class="footer__yt" href="../interest/">Let me know →</a></p>
+${g.shopmyUrl?`      <p class="footer__note">Want more ideas in this style? <a class="footer__yt" href="${esc(g.shopmyUrl)}" target="_blank" rel="sponsored nofollow noopener">View the full collection →</a></p>
+`:''}      <p class="footer__note">Want a guide like this, just for you? <a class="footer__yt" href="../interest/">Let me know →</a></p>
     </div>
   </footer>
 
